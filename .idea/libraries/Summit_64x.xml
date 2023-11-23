@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Summit-64x">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/summit/versions/newest/Summit-64x.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
