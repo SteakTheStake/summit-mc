@@ -1,3 +1,9 @@
+* {
+  font-family: 'MinecraftiaRegular', sans-serif;
+  font-weight: normal;
+  font-style: normal;
+}
+
 section .img2 {
   position: relative;
   width: 100px;

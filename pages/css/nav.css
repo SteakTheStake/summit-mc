@@ -288,12 +288,12 @@
 }
 
 header {
+  text-align: center;
   z-index: 999;
   position: relative;
   top: 0;
   left: 0;
   width: 100%;
-  background: linear-gradient(to right, transparent, transparent);  /* Initially, no background */
   box-shadow: 0 0 20px rgba(255, 255, 255, 0);
   --glow-margin: 70px;
   font-smooth: always;
@@ -336,6 +336,7 @@ header nav .navigation-menu li a {
   font-smooth: always;
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 15px;
+  padding: 5px;
 }
 header nav .navigation-menu li.extends a::after {
   content: ">";
@@ -375,7 +376,7 @@ header nav .navigation-menu li ul li ul {
   background-blend-mode: overlay;
 }
 header nav .navigation-menu li:hover {
-  background-color: rgb(0, 37, 37);
+  background-color: rgba(0, 0, 0, 0.2);
   mix-blend-mode: screen;
   background-blend-mode: screen;
 

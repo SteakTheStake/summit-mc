@@ -1,6 +1,81 @@
 @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond&display=swap");
 @import url('https://fonts.cdnfonts.com/css/minecraft-4');
 
+.light {
+
+}
+
+
+/* DARK MODE */
+
+.fullscreen-underlay.dark-mode {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background: radial-gradient(ellipse at bottom, #002525 0%, #0a1010 100%);
+  overflow: hidden;
+}
+
+header.dark-mode {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0);
+  --glow-margin: 70px;
+  font-smooth: always;
+}
+
+header.dark-mode nav .navigation-menu li a {
+  position: relative;
+  display: block;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 1rem 2rem;
+  text-wrap: none;
+  font-size: 1.25em;
+}
+header.dark-mode nav .navigation-menu li a:hover {
+  position: relative;
+  display: block;
+  color: black;
+  text-decoration: none;
+  padding: 1rem 2rem;
+  text-wrap: none;
+  font-size: 1.25em;
+  --glow-margin: 70px;
+}
+header.dark-mode nav .navigation-menu li ul {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  list-style: none;
+  background-color: rgba(37, 46, 49, 0);
+  box-shadow: 0 0 20px #0003;
+  mix-blend-mode: overlay;
+  background-blend-mode: overlay;
+  --glow-margin: 70px;
+}
+header.dark-mode nav .navigation-menu-mode li:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  mix-blend-mode: overlay;
+  background-blend-mode: overlay;
+  --glow-margin: 70px;
+}
+header nav .navigation-menu li:not(:hover) ul {
+  display: none;
+}
+
+/* END DARK MODE*/
+
 
 * {
   margin: 0;
@@ -14,25 +89,31 @@ body {
   margin: 0;
   padding: 0;
   color: white;
-  font-family: 'Minecraft', sans-serif;
   height: 100vh;
   overflow: hidden;
   width: 100vw;
+  font-smooth: always;
+  font-family: 'MinecraftiaRegular', sans-serif;
+  font-weight: normal;
+  font-style: normal;
 }
 
 
 h2 {
   font-size: clamp(1rem, 5vw, 5rem);
-  font-weight: 400;
   text-align: center;
   letter-spacing: 0.5em;
   margin-right: -0.5em;
   width: 90vw;
   max-width: 1200px;
+  font-smooth: always;
+  font-family: 'MinecraftiaRegular', sans-serif;
+  font-weight: normal;
+  font-style: normal;
 }
-
+/*
 header {
-  position: fixed;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -62,7 +143,26 @@ header {
   justify-content: center;
   align-items: center;
 }
+*/
 
+.image {
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  padding: 1em;
+  width: 100%;
+  z-index: 3;
+  height: 7em;
+  font-smooth: always;
+  font-family: 'MinecraftiaRegular', sans-serif;
+  font-weight: normal;
+  font-style: normal;
+}
+
+.image {
+  letter-spacing: 2px;
+}
 
 .insta {
 
@@ -152,9 +252,10 @@ a {
   margin-bottom: 5%;
 }
 
+
 /* TODO: Make the flashing text scale down as more text is added */
 #flashingtext {
-  margin: -3.5% 0 0 47%;
+  margin: -2.5% 0 0 25%;
   width: 95%;
   bottom: 50px;
   transform: rotate(-20deg);
@@ -184,6 +285,10 @@ a {
   outline: 0.1vw solid #000;
   outline-offset: -0.1vw;
   text-shadow: 4px 4px rgba(0, 0, 0, 0.5);
+  font-smooth: always;
+  font-family: 'MinecraftiaRegular', sans-serif;
+  font-weight: normal;
+  font-style: normal;
 }
 
 .button_small {
@@ -294,8 +399,25 @@ button {
   z-index: -1;
   height: 100vh;
   width: 100vw;
-  background: radial-gradient(ellipse at bottom, #002525 0%, #0a1010 100%);
+  background: radial-gradient(ellipse at bottom, #668eab 0%, #005a9d 200%);
   overflow: hidden;
+}
+
+.toggle {
+  mix-blend-mode: screen;
+  background-blend-mode: screen;
+  -webkit-filter: ;
+  width: 100px;
+  margin: -50%;
+}
+
+#toggleDark {
+  mix-blend-mode: screen;
+  background-blend-mode: screen;
+}
+#toggleLight {
+  mix-blend-mode: screen;
+  background-blend-mode: screen;
 }
 
 #stars {
