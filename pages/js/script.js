@@ -10,7 +10,7 @@ function setupClickEvent(elementId, callback) {
 }
 
 function singleplayer() {
-  document.location.href = 'singleplayer.html';
+  document.location.href = 'pricing.html';
 }
 
 function options() {
@@ -26,7 +26,7 @@ function title() {
 }
 
 function startMultiplayer() {
-  window.location.href = "vault.html";
+  window.location.href = "summit-plus.html";
 }
 
 function connect() {

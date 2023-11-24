@@ -9,11 +9,11 @@
 
   <!-- Discord Meta Tags -->
   <meta content="https://summitmc.xyz/" property="og:url">
-  <meta content="https://i.imgur.com/mUyE7Mw.png" property="og:image">
+  <meta content="https://i.imgur.com/v4GqZ6Z.jpg" property="og:image">
   <meta content="Summit" property="og:title">
   <meta content="Minecraft At Its Peak" property="og:description">
   <meta content="#4874c6" data-react-helmet="true" name="theme-color">
-  <meta name="twitter:card" content="https://i.imgur.com/xtR2Gs8.jpg">
+  <meta name="twitter:card" content="https://i.imgur.com/7ZJK3Dn.jpg">
 
   <!-- Favicons -->
   <link href="content/favicon/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180">
@@ -38,12 +38,12 @@
   <nav>
     <div class="glowing-background">
       <ul class="navigation-menu" id="hoverSound">
-        <li><a href="/home.html" id="toggleLightLogo"><img class="logo" src="content/img/summit-logo-white.png" alt="logo"/></a></li>
-        <li><a href="/home.html" id="toggleDarkLogo" style="display: none;"><img class="logo" src="content/img/summit-logo-black.png" alt="logo"/></a></li>
-        <li><a href="https://patreon.com/SummitMC?utm_medium=clipboard_copy&utm_source=copyLink&utm_campaign=creatorshare_fan&utm_content=join_link" target="_blank">Presets</a></li>
+        <li><a href="/pages/home.html" id="toggleLightLogo"><img class="logo" src="content/img/summit-logo-white.png" alt="logo"/></a></li>
+        <li><a href="/pages/home.html" id="toggleDarkLogo" style="display: none;"><img class="logo" src="content/img/summit-logo-white.png" alt="logo"/></a></li>
 
-        <li><a href="/pricing.html">Pricing</a></li>
-        <li><a href="/summit-plus.html">Summit+</a></li>
+        <li><a href="/pages/pricing.html">Pricing</a></li>
+        <li><a href="/pages/summit-plus.html">Summit+</a></li>
+        <li><a href="https://patreon.com/SummitMC?utm_medium=clipboard_copy&utm_source=copyLink&utm_campaign=creatorshare_fan&utm_content=join_link" target="_blank">Patreon</a></li>
         <li><a href="https://discord.gg/M9cmBBGKU8" target="_blank">Discord</a></li>
           <li><a id="toggleDark"><img class="toggle" src="content/img/moon.png" alt="toggle"></a></li>
           <li><a id="toggleLight" style="display: none;"><img class="toggle" src="content/img/sun.png" alt="toggle"></a></li>
@@ -55,6 +55,7 @@
   <section>
     <img alt="Minecraft Text" id="logo" class="small_logo" src="content/img/Summit.png" />
     <div id="flashingtext">Minecraft At Its Peak</div>
+    <div class="elevate"><p>Join the Summit community and elevate your Minecraft experience.</p></div>
     <img alt="Minecraft" class="small_logo" style="visibility: hidden" src="content/img/space-half.png" />
     <button class="button singleplayer soundButton" id="click1">Play Summit</button>
     <br>
@@ -63,25 +64,27 @@
     <button class="button button_small left soundButton patreonAuthBtnClass" id="click7"><i class="fa-brands fa-patreon"></i>&nbsp;Options</button>
     <button class="button button_small right soundButton" id="click4">Quit</button>
   </section>
-  <section class="image">
-    <h3>COMING SOON</h3>
-  </section>
   <section>
 
   </section>
   <footer class="bottom-div">
     <div class="middle">
       <div class="nobtn">
-        <p class="halfo">"Minecraft" is a trademark of Mojang. This site is not affiliated with Mojang or Microsoft.</p>
+        <p class="half-opacity yellow">"Minecraft" is a trademark of Mojang. This site is not affiliated with Mojang or Microsoft.</p>
         <p>©&nbsp;<span id="year"></span>&nbsp;Summit. All rights reserved.</p>
       </div>
     </div>
   </footer>
 </main>
-<div class="fullscreen-underlay light">
+<div id="lightThemeDiv" class="fullscreen-underlay">
   <div id="stars"></div>
   <div id="stars2"></div>
   <div id="stars3"></div>
+</div>
+<div id="darkThemeDiv" class="dark-fullscreen-underlay">
+  <div id="darkstars"></div>
+  <div id="darkstars2"></div>
+  <div id="darkstars3"></div>
 </div>
 
 <!-- Scripts -->

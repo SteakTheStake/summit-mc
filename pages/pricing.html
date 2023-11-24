@@ -1,10 +1,95 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Summit | Pricing</title>
-</head>
-<body>
+<!doctype html>
+<html class="no-js" lang="en">
 
+<head>
+  <meta charset="utf-8">
+  <title>Summit | Pricing</title>
+  <meta content="Minecraft At Its Peak" name="description">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Discord Meta Tags -->
+  <meta content="https://summitmc.xyz/pages/summit-plus.html" property="og:url">
+  <meta content="https://i.imgur.com/v4GqZ6Z.jpg" property="og:image">
+  <meta content="Summit" property="og:title">
+  <meta content="Minecraft At Its Peak" property="og:description">
+  <meta content="#4874c6" data-react-helmet="true" name="theme-color">
+  <meta name="twitter:card" content="https://i.imgur.com/7ZJK3Dn.jpg">
+
+  <!-- Favicons -->
+  <link href="content/favicon/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180">
+  <link href="content/favicon/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png">
+  <link href="content/favicon/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png">
+  <link rel="manifest" href="site.webmanifest">
+
+  <!-- Stylesheets -->
+  <link href="css/normalize.css" rel="stylesheet">
+  <link href="css/main.css" rel="stylesheet">
+  <link href="css/darkmode.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/nav.css" rel="stylesheet">
+  <link rel="stylesheet" media="screen" href="https://fontlibrary.org//face/minecraftia" type="text/css"/>
+
+  <!-- Scripts -->
+  <script crossorigin="anonymous" src="https://kit.fontawesome.com/cd4693caa2.js"></script>
+</head>
+
+<body>
+<header>
+  <nav>
+    <div class="glowing-background">
+      <ul class="navigation-menu" id="hoverSound">
+        <li><a href="/pages/home.html" id="toggleLightLogo"><img class="logo" src="content/img/summit-logo-white.png" alt="logo"/></a></li>
+        <li><a href="/pages/home.html" id="toggleDarkLogo" style="display: none;"><img class="logo" src="content/img/summit-logo-white.png" alt="logo"/></a></li>
+
+        <li><a href="/pages/pricing.html">Pricing</a></li>
+        <li><a href="/pages/summit-plus.html">Summit+</a></li>
+        <li><a href="https://patreon.com/SummitMC?utm_medium=clipboard_copy&utm_source=copyLink&utm_campaign=creatorshare_fan&utm_content=join_link" target="_blank">Patreon</a></li>
+        <li><a href="https://discord.gg/M9cmBBGKU8" target="_blank">Discord</a></li>
+        <li><a id="toggleDark"><img class="toggle" src="content/img/moon.png" alt="toggle"></a></li>
+        <li><a id="toggleLight" style="display: none;"><img class="toggle" src="content/img/sun.png" alt="toggle"></a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+<main>
+  <section>
+
+  </section>
+  <section>
+
+  </section>
+  <footer class="bottom-div">
+    <div class="middle">
+      <div class="nobtn">
+        <p class="half-opacity yellow">"Minecraft" is a trademark of Mojang. This site is not affiliated with Mojang or Microsoft.</p>
+        <p>©&nbsp;<span id="year"></span>&nbsp;Summit. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+</main>
+<div id="lightThemeDiv" class="fullscreen-underlay">
+  <div id="stars"></div>
+  <div id="stars2"></div>
+  <div id="stars3"></div>
+</div>
+<div id="darkThemeDiv" class="dark-fullscreen-underlay">
+  <div id="darkstars"></div>
+  <div id="darkstars2"></div>
+  <div id="darkstars3"></div>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="js/vendor/modernizr-3.11.2.min.js"></script>
+<script src="js/plugins.js"></script>
+<script src="js/darkmode.js"></script>
+<script src="js/script.js"></script>
+<script src="js/patreon-auth.js" defer></script>
+<script src='https://cdn.jsdelivr.net/npm/@widgetbot/crate@3' async defer>
+  new Crate({
+    server: '1159871598644445266', // SummitMC
+    channel: '1159878139569258517' // #⛺┃general
+  })
+</script>
 </body>
 </html>
