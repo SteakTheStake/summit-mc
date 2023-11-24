@@ -1,0 +1,770 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond&display=swap");
+@import url('https://fonts.cdnfonts.com/css/minecraft-4');
+
+.background {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  object-fit: cover;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -999;
+}
+
+#imageToScale {
+  transition: transform 0.3s ease; /* 0.3s is the duration of the transition; you can adjust it */
+}
+
+@keyframes fadeFog {
+  0% {
+    opacity: 95%;  /* Start fully transparent */
+  }
+  50% {
+    opacity: 75%;  /* Midway, become fully opaque */
+  }
+  100% {
+    opacity: 0;  /* End fully transparent */
+  }
+}
+
+.fadeOut {
+  animation-name: fadeCloud;
+  animation-duration: 2s;  /* Adjust duration as needed */
+  animation-fill-mode: forwards;  /* Ensures the end state (opacity: 0) of the animation is retained */
+}
+
+.z-0 {
+  z-index: -1000;
+}
+
+.z-10 {
+  z-index: 10;
+}
+
+.separator-pin1 {
+  scale: 200%;
+  position: absolute;
+  top: 72%;
+  left: 46.5%;
+  transform: translate(-50%, -50%);
+  opacity: 75%;
+  display: flex;
+  cursor: pointer;
+}
+
+.separator-pin1 .btn1 {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  visibility: visible;
+  bottom: -10px;
+  transform: translate(-50%, -50%);
+  background-color: rgba(255,255,255,0);
+  border: none;
+  border-radius: 35px;
+}
+
+.separator-pin1 .pin1 {
+  transform-origin: bottom;
+  position: absolute;
+  transition: transform 250ms;
+}
+
+.separator-pin1 .pin1:hover {
+  transform: scale(90%);
+  transform-origin: bottom;
+}
+
+
+
+.separator-pin2 {
+  scale: 200%;
+  position: absolute;
+  top: 61%;
+  left: 47%;
+  transform: translate(-40%, -85%);
+  opacity: 75%;
+  display: flex;
+  cursor: pointer;
+}
+
+.separator-pin2 .btn2 {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  visibility: visible;
+  bottom: -10px;
+  transform: translate(-50%, -50%);
+  background-color: rgba(255,255,255,0);
+  border: none;
+  border-radius: 35px;
+}
+
+.separator-pin2 .pin2 {
+  transform-origin: bottom;
+  position: absolute;
+  transition: transform 250ms;
+}
+
+.separator-pin2 .pin2:hover {
+  transform: scale(90%);
+  transform-origin: bottom;
+}
+
+
+
+.separator-pin3 {
+  scale: 200%;
+  position: absolute;
+  top: 53%;
+  left: 49%;
+  transform: translate(-40%, -55%);
+  opacity: 75%;
+  display: flex;
+  cursor: pointer;
+}
+
+.separator-pin3 .btn3 {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  visibility: visible;
+  bottom: -10px;
+  transform: translate(-50%, -50%);
+  background-color: rgba(255,255,255,0);
+  border: none;
+  border-radius: 35px;
+}
+
+.separator-pin3 .pin3 {
+  transform-origin: bottom;
+  position: absolute;
+  transition: transform 250ms;
+}
+
+.separator-pin3 .pin3:hover {
+  transform: scale(90%);
+  transform-origin: bottom;
+}
+
+
+
+.separator-pin4 {
+  scale: 200%;
+  position: absolute;
+  top: 60%;
+  left: 41%;
+  transform: translate(-40%, -55%);
+  opacity: 75%;
+  display: flex;
+  cursor: pointer;
+}
+
+.separator-pin4 .btn4 {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  visibility: visible;
+  bottom: -10px;
+  transform: translate(-50%, -50%);
+  background-color: rgba(255,255,255,0);
+  border: none;
+  border-radius: 35px;
+}
+
+.separator-pin4 .pin4 {
+  transform-origin: bottom;
+  position: absolute;
+  transition: transform 250ms;
+}
+
+.separator-pin4 .pin4:hover {
+  transform: scale(90%);
+  transform-origin: bottom;
+}
+
+
+.separator-pin5 {
+  scale: 200%;
+  position: absolute;
+  top: 76%;
+  left: 48%;
+  transform: translate(-40%, -55%);
+  opacity: 75%;
+  display: flex;
+}
+
+.separator-pin5 .btn5 {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  visibility: visible;
+  bottom: -10px;
+  transform: translate(-50%, -50%);
+  border: none;
+  border-radius: 35px;
+}
+
+.separator-pin5 .pin5 {
+  transform-origin: bottom;
+  position: absolute;
+  transition: transform 250ms;
+}
+
+.separator-pin5 .pin5:hover {
+  transform: scale(90%);
+  transform-origin: bottom;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.cloud {
+  position: absolute;
+  animation: fallThrough 5s linear infinite;
+  opacity: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+@keyframes fallThrough {
+  0% {
+    transform: translateY(-100%);
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+/* You can adjust the starting position and animation duration for individual clouds */
+#cloud1 {
+  left: 10%;
+  animation-delay: 1s;
+}
+
+#cloud2 {
+  left: 50%;
+  animation-delay: 2s;
+}
+
+#cloud3 {
+  right: 50%;
+  animation-delay: 3s;
+}
+
+#cloud4 {
+  right: 25%;
+  animation-delay: 2s;
+}
+
+#cloud5 {
+  left: 0;
+  animation-delay: 1s;
+}
+
+#cloud6 {
+  right: 50%;
+  animation-delay: 2s;
+}
+
+#cloud7 {
+  left: 50%;
+  animation-delay: 3s;
+}
+
+#cloud8 {
+  left: 25%;
+  animation-delay: 2s;
+}
+
+header {
+  z-index: 999;
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(to right, transparent, transparent);  /* Initially, no background */
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0);
+  --glow-margin: 70px;
+  font-smooth: always;
+  font-family: 'MinecraftiaRegular', sans-serif;
+  font-weight: normal;
+  font-style: normal;
+}
+
+header nav {
+  position: relative;
+}
+header nav .navigation-menu {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+header nav .navigation-menu li {
+  position: relative;
+  --glow-margin: 70px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 15px;
+}
+header nav .navigation-menu li a {
+  position: relative;
+  display: block;
+  color: #ffff00;
+  text-decoration: none;
+  padding: 1rem 2rem;
+  text-wrap: none;
+  font-size: 1.25em;
+}
+.logo {
+  width: 80px;
+  height: auto;
+  font-smooth: always;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 15px;
+}
+header nav .navigation-menu li.extends a::after {
+  content: ">";
+  display: inline-block;
+  transform: rotate(90deg);
+  margin-left: 0.5rem;
+  padding-bottom: 3px;
+  vertical-align: middle;
+  font-size: 10px;
+}
+header nav .navigation-menu li:not(.extends) a::after {
+  content: "";
+}
+header nav .navigation-menu li ul {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  list-style: none;
+  background-color: rgba(255, 255, 255, 0);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0);
+  --glow-margin: 70px;
+}
+header nav .navigation-menu li ul li {
+  position: unset;
+}
+header nav .navigation-menu li ul li a::after {
+  transform: rotate(0deg) !important;
+}
+header nav .navigation-menu li ul li ul {
+  left: 100%;
+  top: 0;
+  min-height: 100%;
+  mix-blend-mode: overlay;
+  background-blend-mode: overlay;
+}
+header nav .navigation-menu li:hover {
+  background-color: rgb(0, 37, 37);
+  mix-blend-mode: screen;
+  background-blend-mode: screen;
+
+}
+header nav .navigation-menu li:not(:hover) ul {
+  display: none;
+}
+
+.glowing-background {
+  z-index: 11;
+  text-align: center;
+  opacity: 100%;
+  width: 100%;
+  --glow-margin: 70px;
+}
+.glowing-background:hover {
+  color: #ffff00;
+}
+
+
+/* DARK MODE */
+
+body.dark-mode {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  font-weight: 400;
+  color: #ffff00;
+}
+
+header.dark-mode {
+  z-index: 999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0);
+  --glow-margin: 70px;
+  font-smooth: always;
+}
+header.dark-mode nav .navigation-menu li a {
+  position: relative;
+  display: block;
+  color: #ffff00;
+  text-decoration: none;
+  padding: 1rem 2rem;
+  text-wrap: none;
+  font-size: 1.25em;
+  --glow-margin: 70px;
+}
+header.dark-mode nav .navigation-menu li a:hover {
+  position: relative;
+  display: block;
+  color: #ffff00;
+  text-decoration: none;
+  padding: 1rem 2rem;
+  text-wrap: none;
+  font-size: 1.25em;
+  --glow-margin: 70px;
+}
+header.dark-mode nav .navigation-menu li ul {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  list-style: none;
+  background-color: rgba(37, 46, 49, 0);
+  box-shadow: 0 0 20px #0003;
+  mix-blend-mode: overlay;
+  background-blend-mode: overlay;
+  --glow-margin: 70px;
+}
+header.dark-mode nav .navigation-menu-mode li:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  mix-blend-mode: overlay;
+  background-blend-mode: overlay;
+  --glow-margin: 70px;
+}
+header nav .navigation-menu li:not(:hover) ul {
+  display: none;
+}
+
+
+
+.shapes.dark-mode {
+  animation: gradientAnimationDark 25s infinite;
+  background-image: radial-gradient(#333dff, #00eaff, #99fff7);
+}
+
+@keyframes gradientAnimationDark {
+  0% {
+    background-position: 100% 0;
+  }
+  50% {
+    background-position: 0 100%;
+  }
+  100% {
+    background-position: 100% 0;
+  }
+}
+
+section .z-0 div .section1.dark-mode {
+  align-items: center;
+  vertical-align: center;
+  padding: 25px;
+  margin: 100px 250px 100px 100px;
+  font-size: large;
+  text-wrap: normal;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border: none;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 35px;
+
+}
+
+/* END DARK MODE*/
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 100% 0;
+  }
+  50% {
+    background-position: 0 100%;
+  }
+  100% {
+    background-position: 100% 0;
+  }
+}
+.wave {
+  background: rgb(255, 255, 255);
+  border-radius: 1000% 1000% 0 0;
+  position: absolute;
+  width: 200%;
+  height: 5em;
+  animation: wave 10s -3s linear infinite;
+  transform: translate3d(0, 0, 0);
+  opacity: 0.8;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.wave:nth-of-type(2) {
+  bottom: -1.25em;
+  animation: wave 18s linear reverse infinite;
+  opacity: 0.8;
+}
+
+.wave:nth-of-type(3) {
+  bottom: -2.5em;
+  animation: wave 20s -1s reverse infinite;
+  opacity: 0.9;
+}
+
+@keyframes wave {
+  2% {
+    transform: translateX(1px);
+  }
+
+  25% {
+    transform: translateX(-25%);
+  }
+
+  50% {
+    transform: translateX(-50%);
+  }
+
+  75% {
+    transform: translateX(-25%);
+  }
+
+  100% {
+    transform: translateX(1px);
+  }
+}
+
+.glowing-background.dark-mode {
+  z-index: 11;
+  text-align: center;
+  animation: darkTextColor 10s ease infinite;
+  background-blend-mode: screen;
+  opacity: 100%;
+}
+.section1 {
+  position: absolute;
+  top: 100vh;
+  align-items: center;
+  vertical-align: center;
+  padding: 25px;
+  margin: 100px 100px 100px 100px;
+  font-size: large;
+  text-wrap: normal;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border: none;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 35px;
+}
+
+.align-center {
+  position: absolute;
+  padding: 40px;
+  align-items: center;
+  vertical-align: center;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border: none;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 35px;
+  max-width: 62vw;
+  max-height: 62vh;
+  margin: 535vh auto 0;
+  object-fit: contain;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.column {
+  float: right;
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.patreon-1 {
+  padding: 5px;
+  cursor: pointer;
+}
+.copyright-2 {
+  padding: 5px;
+}
+
+.discord-3 {
+  padding: 5px;
+  cursor: pointer;
+}
+
+.footer {
+
+}
+
+.left {
+  text-align: left;
+}
+
+.mask {
+  border-radius: 77px;
+  width: 350px;
+  height: 350px;
+}
+
+.background-image1 {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: -999;
+}
+
+.background-image2 {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: -999;
+}
+
+.background-image3 {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: -999;
+}
+
+.background-image4 {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: -999;
+}
+
+.background-image5 {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: -999;
+}
+
+.background-image6 {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: -999;
+}
+
+.group-pop {
+  width: 100%;
+  height: auto;
+}
+
+.popup1 {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  align-content: center;
+  z-index: 999;
+}
+
+.popup-content1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border: none;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 35px;
+  max-width: 62vw;
+  max-height: 62vh;
+  margin: 0 auto;
+  object-fit: contain;
+}
+
+.popup-content-img {
+  object-fit: contain;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  border-radius: 35px;
+  width: 60vw;
+  height: 60vh;
+  margin: 0 auto;
+}
+
+.close-button1 {
+  position: fixed;
+  top: 5px;
+  right: 10px;
+  font-size: 50px;
+  cursor: pointer;
+  color: red;
+  z-index: 1000;
+}
+
+.background-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.first-section {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 150vh;
+}

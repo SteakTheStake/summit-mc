@@ -25,26 +25,48 @@
   <link href="css/normalize.css" rel="stylesheet">
   <link href="css/main.css" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet">
+  <link href="css/nav.css" rel="stylesheet">
+  <link rel="stylesheet" media="screen" href="https://fontlibrary.org//face/minecraftia" type="text/css"/>
 
   <!-- Scripts -->
   <script crossorigin="anonymous" src="https://kit.fontawesome.com/cd4693caa2.js"></script>
 </head>
 
 <body>
+<header>
+  <nav>
+    <div class="glowing-background">
+      <ul class="navigation-menu" id="hoverSound">
+        <li><a href="/home.html" id="toggleLightLogo"><img class="logo" src="/content/img/Summit-Logo.svg" alt="logo"/></a></li>
+        <li><a href="/home.html" id="toggleDarkLogo" style="display: none;"><img class="logo" src="/content/img/Summit-Logo.svg" alt="logo"/></a></li>
+        <li><a href="https://patreon.com/SummitMC?utm_medium=clipboard_copy&utm_source=copyLink&utm_campaign=creatorshare_fan&utm_content=join_link" target="_blank">Presets</a></li>
+
+        <li><a href="/pricing.html">Pricing</a></li>
+        <li><a href="/summit-plus.html">Summit+</a></li>
+        <li><a href="https://discord.gg/M9cmBBGKU8" target="_blank">Discord</a></li>
+          <li><a href="#" id="toggleDark"><i class="fa-solid fa-moon"></i></a></li>
+          <li><a href="#" id="toggleLight" style="display: none;"><i class="fa-solid fa-sun" style="color: #ffffff;"></i></a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
 <main>
   <section>
     <img alt="Minecraft Text" id="logo" class="small_logo" src="content/img/Summit.png" />
     <div id="flashingtext">Minecraft At Its Peak</div>
     <img alt="Minecraft" class="small_logo" style="visibility: hidden" src="content/img/space-half.png" />
-    <button class="button singleplayer soundButton" id="click1">Free Area</button>
+    <button class="button singleplayer soundButton" id="click1">Play Summit</button>
     <br>
-    <button class="button multiplayer soundButton" id="click2">Download Vault</button>
+    <button class="button multiplayer soundButton" id="click2">Summit+</button>
     <br>
-    <button class="button button_small left soundButton patreonAuthBtnClass" id="click7">Connect With Patreon</button>
+    <button class="button button_small left soundButton patreonAuthBtnClass" id="click7"><i class="fa-brands fa-patreon"></i>&nbsp;Options</button>
     <button class="button button_small right soundButton" id="click4">Quit</button>
   </section>
   <section class="image2">
     <h3>COMING SOON</h3>
+  </section>
+  <section>
+
   </section>
   <footer class="bottom-div">
     <div class="middle">

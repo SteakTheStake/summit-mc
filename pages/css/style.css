@@ -40,7 +40,6 @@ header {
   width: 100%;
   z-index: 3;
   height: 7em;
-  font-family: "Bebas Neue", sans-serif;
   font-size: clamp(0.66rem, 2vw, 1rem);
   letter-spacing: 0.5em;
 }
@@ -162,6 +161,9 @@ a {
   animation: FlashingText 0.5s ease-in-out infinite;
   color: #FFFF00;
   font-size: 1vw;
+  font-family: 'MinecraftiaRegular', sans-serif;
+  font-weight: normal;
+  font-style: normal;
 }
 
 .singleplayer {
