@@ -7,6 +7,9 @@ const lightThemeDiv = document.getElementById('lightThemeDiv');
 const currentTheme = localStorage.getItem('theme');
 const bodyElement = document.body; // or a main container element
 
+const toggleDarkLogo = document.getElementById('toggleDarkLogo');
+const toggleLightLogo = document.getElementById('toggleLightLogo');
+
 function applyTheme(theme) {
   if (theme === 'dark-mode') {
     darkThemeDiv.style.display = 'block';
@@ -15,6 +18,8 @@ function applyTheme(theme) {
     bodyElement.classList.remove('light-mode');
     toggleDarkButton.style.display = 'none';
     toggleLightButton.style.display = 'block';
+    toggleDarkLogo.style.display = 'none';
+    toggleLightLogo.style.display = 'block';
   } else {
     darkThemeDiv.style.display = 'none';
     lightThemeDiv.style.display = 'block';
@@ -22,6 +27,8 @@ function applyTheme(theme) {
     bodyElement.classList.remove('dark-mode');
     toggleDarkButton.style.display = 'block';
     toggleLightButton.style.display = 'none';
+    toggleDarkLogo.style.display = 'block';
+    toggleLightLogo.style.display = 'none';
   }
   localStorage.setItem('theme', theme);
 }

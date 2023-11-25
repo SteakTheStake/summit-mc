@@ -8,6 +8,10 @@
 
 /* DARK MODE */
 
+.dark_title {
+  display: none;
+}
+
 .dark-fullscreen-underlay {
   position: fixed;
   top: 0;
@@ -386,6 +390,13 @@ button {
   height: auto;
 }
 
+.title {
+  position: relative;
+  padding: 50px;
+  width: 50%;
+  right: -25%;
+}
+
 .half-opacity {
   opacity: 75%;
 }
@@ -420,7 +431,6 @@ p {
 .toggle {
   mix-blend-mode: screen;
   background-blend-mode: screen;
-  -webkit-filter: ;
   width: 100px;
   margin: -50%;
 }
