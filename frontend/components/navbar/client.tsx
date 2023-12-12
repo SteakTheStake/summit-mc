@@ -14,7 +14,7 @@ export const NavLink = ({
   className?: string;
 }) => {
   const pathname = usePathname();
-  const isActive = pathname.includes(href);
+  const isActive = pathname === href;
 
   return (
     <Link
