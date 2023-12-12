@@ -7,6 +7,7 @@ const store = process.env.PATREON_NAME;
 
 export const { auth, signIn, signOut, handlers } = NextAuth({
   ...authConfig,
+  session: { strategy: "jwt" },
   providers: [
     Patreon({
       clientId: process.env.PATREON_CLIENT_ID,
@@ -18,7 +19,6 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
       },
     }),
   ],
-  session: { strategy: "jwt" },
   callbacks: {
     async session({ session, token, user }) {
       const { accessToken, id } = token;
@@ -55,9 +55,9 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
           // @ts-ignore
           session.pledge_amount = 0;
         }
-      } catch {
+      } catch (err) {
         // @ts-ignore
-        session.err = err;
+        session.err = JSON.stringify(err);
       }
 
       return session;

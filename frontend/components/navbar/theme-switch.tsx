@@ -12,7 +12,6 @@ export const ThemeSwitch = ({ className }: { className?: string }) => {
   const { theme, setTheme } = useTheme();
 
   const switchThemes = () => {
-    console.log(theme);
     if (theme === "dark") {
       setTheme("light");
     } else {

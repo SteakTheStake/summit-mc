@@ -6,8 +6,11 @@ import { ThemeSwitch } from "./theme-switch";
 import { Menu } from "./menu";
 
 import summit from "@/public/logo.png";
+import { auth } from "@/auth";
 
-export const Navbar = () => {
+export const Navbar = async () => {
+  const session = await auth();
+
   return (
     <nav className="h-16 flex items-center justify-center z-[1000]">
       <header className="md:grid flex max-md:justify-between md:grid-cols-3 h-16 items-center gap-8 w-full max-w-7xl px-4">
@@ -76,9 +79,15 @@ export const Navbar = () => {
             <ThemeSwitch />
           </li>
           <li>
-            <LinkButton href="/login" className="py-1 px-2 text-base">
-              Login
-            </LinkButton>
+            {!session ? (
+              <LinkButton href="/login" className="py-1 px-2 text-base">
+                Login
+              </LinkButton>
+            ) : (
+              <LinkButton href="/vault" className="py-1 px-2 text-base">
+                Vault
+              </LinkButton>
+            )}
           </li>
         </ul>
 

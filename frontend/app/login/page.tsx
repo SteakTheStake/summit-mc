@@ -1,13 +1,14 @@
 import { Metadata } from "next";
 import { PatreonButton } from ".";
 import Link from "next/link";
+import { auth } from "@/auth";
 
 export const metadata: Metadata = {
   title: "Login | SummitMC",
   description: "Login to access the vault",
 };
 
-export default function LoginPage() {
+export default async function LoginPage() {
   return (
     <main className="flex flex-col gap-4 items-center justify-center">
       <PatreonButton />

@@ -15,6 +15,7 @@ export const HeroImage = () => {
       alt="Hero logo image of SummitMC"
       width={448}
       height={196}
+      loading="eager"
       className="max-w-md w-full"
     />
   );
