@@ -1,6 +1,9 @@
 import NextAuth from "next-auth";
 import { authConfig } from "./auth.config";
 import Patreon from "next-auth/providers/patreon";
+import { IsPlegdedProps } from "./auth-types";
+
+const store = process.env.PATREON_NAME;
 
 export const { auth, signIn, signOut, handlers } = NextAuth({
   ...authConfig,
@@ -28,28 +31,36 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
         const pledeRes = await fetch(
           "https://www.patreon.com/api/oauth2/api/current_user",
           {
-            method: "get",
+            method: "GET",
             headers: {
               Authorization: `Bearer ${accessToken}`,
             },
           },
         );
-        const pledges = await pledeRes.json();
-        console.log(JSON.stringify(pledges));
+        const pledges: IsPlegdedProps = await pledeRes.json();
 
-        // const isPledged = pledges.
-      } catch {}
+        const isPledged = pledges.included.find(
+          (e) => e.attributes.url?.includes(store),
+        );
+
+        if (isPledged && isPledged.attributes.amount) {
+          const amount = isPledged.attributes.amount;
+          // @ts-ignore
+          session.is_pledged = amount > 299 ? true : false;
+          // @ts-ignore
+          session.pledge_amount = amount;
+        } else {
+          // @ts-ignore
+          session.is_pledged = false;
+          // @ts-ignore
+          session.pledge_amount = 0;
+        }
+      } catch {
+        // @ts-ignore
+        session.err = err;
+      }
 
       return session;
-    },
-    jwt({ account, token, user }) {
-      if (user) {
-        token.id = user.id;
-      }
-      if (account) {
-        token.accessToken = account.access_token;
-      }
-      return token;
     },
   },
 });

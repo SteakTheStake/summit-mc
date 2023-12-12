@@ -1,19 +1,9 @@
-import { auth, signOut } from "@/auth";
+import { auth } from "@/auth";
+import { signOut } from "next-auth/react";
 
 export default async function Vault() {
   const session = await auth();
   // console.log(session);
 
-  return (
-    <main>
-      <form
-        action={async () => {
-          "use server";
-          signOut();
-        }}
-      >
-        <button type="submit">Sign Out</button>
-      </form>
-    </main>
-  );
+  return <main></main>;
 }

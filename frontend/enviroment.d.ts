@@ -7,6 +7,7 @@ declare global {
       AUTH_SECRET: string;
       PATREON_CLIENT_ID: string;
       PATREON_CLIENT_SECRET: string;
+      PATREON_NAME: string;
     }
   }
 }

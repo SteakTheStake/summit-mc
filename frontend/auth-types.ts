@@ -8,4 +8,6 @@ interface Included {
 
 interface Attributes {
   url?: string;
+  amount_cents?: number;
+  amount?: number;
 }
