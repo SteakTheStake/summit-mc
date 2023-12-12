@@ -1,16 +1,23 @@
-"use client";
+import { Metadata } from "next";
+import { PatreonButton } from ".";
+import Link from "next/link";
 
-import { signIn } from "next-auth/react";
+export const metadata: Metadata = {
+  title: "Login | SummitMC",
+  description: "Login to access the vault",
+};
 
-export default async function LoginPage() {
-  const signInHandler = async () => {
-    // "use server";
-    await signIn("patreon");
-  };
-
+export default function LoginPage() {
   return (
-    <form action={signInHandler}>
-      <button type="submit">Login</button>
-    </form>
+    <main className="flex flex-col gap-4 items-center justify-center">
+      <PatreonButton />
+      <p className="sm:w-96 w-full text-lg">
+        By signing with Patreon, you agree to our{" "}
+        <Link href="/privacy-policy" className="underline">
+          Privacy Policy
+        </Link>
+        .
+      </p>
+    </main>
   );
 }
