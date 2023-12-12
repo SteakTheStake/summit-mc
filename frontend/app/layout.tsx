@@ -1,7 +1,10 @@
+import "./globals.css";
+
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import "./globals.css";
 import Providers from "./providers";
+
+import { Navbar } from "@/components/navbar";
 
 const minecraft = localFont({
   src: [
@@ -41,7 +44,11 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${minecraft.className} antialiased`}>
-        <Providers>{children}</Providers>
+        <Providers>
+          <Navbar />
+          {children}
+          <div className="bg-overlay" aria-hidden="true"></div>
+        </Providers>
       </body>
     </html>
   );

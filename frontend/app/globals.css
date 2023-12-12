@@ -1,3 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  @apply text-yellow-400;
+  scroll-behavior: smooth;
+  text-shadow: 0.2em 0.2em #383838;
+}
+
+button.default-ts,
+a.default-ts {
+  text-shadow: 0.15em 0.15em #383838;
+}
+
+.bg-overlay {
+  @apply fixed w-full h-full -z-[1] inset-0;
+  background: radial-gradient(ellipse at bottom, #668eab 0%, #005a9d 200%)
+    no-repeat;
+}
+
+html.dark .bg-overlay {
+  background: radial-gradient(ellipse at bottom, #002525 0%, #0a1010 100%)
+    no-repeat;
+}
