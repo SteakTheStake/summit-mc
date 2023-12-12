@@ -1,9 +1,8 @@
 import type { NextAuthConfig } from "next-auth";
-import Patreon from "next-auth/providers/patreon";
 
 export const authConfig = {
   pages: {
-    signIn: "/login",
+    // signIn: "/login",
   },
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
@@ -13,20 +12,10 @@ export const authConfig = {
         if (isLoggedIn) return true;
         return false;
       } else if (isLoggedIn) {
-        return Response.redirect(new URL("/dashboard", nextUrl));
+        return Response.redirect(new URL("/vault", nextUrl));
       }
       return true;
     },
   },
-  providers: [
-    Patreon({
-      clientId: process.env.PATREON_CLIENT_ID,
-      clientSecret: process.env.PATREON_CLIENT_SECRET,
-      authorization: {
-        params: {
-          scope: "identity.memberships identity[email] identity",
-        },
-      },
-    }),
-  ],
+  providers: [],
 } satisfies NextAuthConfig;
