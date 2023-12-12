@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import Providers from "./providers";
 
 const minecraft = localFont({
   src: [
@@ -39,7 +40,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${minecraft.className} antialiased`}>{children}</body>
+      <body className={`${minecraft.className} antialiased`}>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }
