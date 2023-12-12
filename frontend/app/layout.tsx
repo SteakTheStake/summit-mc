@@ -5,6 +5,7 @@ import localFont from "next/font/local";
 import Providers from "./providers";
 
 import { Navbar } from "@/components/navbar";
+import { Stars } from "@/components/stars";
 
 const minecraft = localFont({
   src: [
@@ -47,7 +48,9 @@ export default function RootLayout({
         <Providers>
           <Navbar />
           {children}
-          <div className="bg-overlay" aria-hidden="true"></div>
+          <div className="bg-overlay" aria-hidden="true">
+            <Stars />
+          </div>
         </Providers>
       </body>
     </html>
