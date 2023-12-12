@@ -31,6 +31,7 @@ export const Button: React.FC<ButtonProps> = ({
       style={{
         background: "url(/bgbtn.png)",
         backgroundSize: "100% 200%",
+        backgroundRepeat: "no-repeat",
       }}
       onClick={(e) => {
         playSound();

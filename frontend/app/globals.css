@@ -32,3 +32,7 @@ button.shadow,
 a.shadow {
   @apply shadow-[2px_2px_rgb(0,0,0,0.5)];
 }
+
+main {
+  @apply max-w-7xl px-4 mx-auto min-h-[calc(100vh-4rem)];
+}
