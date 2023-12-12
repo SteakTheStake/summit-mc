@@ -1,12 +1,11 @@
 import "./globals.css";
 
-import type { Metadata } from "next";
-import localFont from "next/font/local";
 import Providers from "./providers";
-
 import { Navbar } from "@/components/navbar";
+import { Footer } from "@/components/footer";
 import { Stars } from "@/components/stars";
 
+import localFont from "next/font/local";
 const minecraft = localFont({
   src: [
     {
@@ -32,6 +31,7 @@ const minecraft = localFont({
   ],
 });
 
+import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "SummitMC",
   description: "Minecraft at its peak",
@@ -48,6 +48,8 @@ export default function RootLayout({
         <Providers>
           <Navbar />
           {children}
+          <Footer></Footer>
+
           <div className="bg-overlay" aria-hidden="true">
             <Stars />
           </div>
