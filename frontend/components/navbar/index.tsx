@@ -1,16 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
 import { NavLink } from "./client";
+import { LinkButton } from "../button";
+import { ThemeSwitch } from "./theme-switch";
+import { Menu } from "./menu";
 
 import summit from "@/public/logo.png";
-import { Button, LinkButton } from "../button";
-import { ThemeSwitch } from "./theme-switch";
 
 export const Navbar = () => {
   return (
-    <nav className="h-16 flex items-center justify-center">
-      <header className="grid gird-cols-2 md:grid-cols-3 h-16 items-center justify-between gap-8 w-full max-w-7xl">
-        <ul className="flex gap-4 items-center text-2xl">
+    <nav className="h-16 flex items-center justify-center z-[1000]">
+      <header className="md:grid flex max-md:justify-between md:grid-cols-3 h-16 items-center gap-8 w-full max-w-7xl px-4">
+        <ul className="flex gap-4 items-center text-2xl max-md:hidden">
           <li>
             <NavLink href="/">Home</NavLink>
           </li>
@@ -34,7 +35,7 @@ export const Navbar = () => {
           />
         </Link>
 
-        <ul className="flex items-center justify-end gap-2 text-2xl">
+        <ul className="flex items-center justify-end gap-2 text-2xl max-md:hidden">
           <li>
             <LinkButton
               href="https://www.patreon.com/SummitMC"
@@ -74,7 +75,14 @@ export const Navbar = () => {
           <li>
             <ThemeSwitch />
           </li>
+          <li>
+            <LinkButton href="/login" className="py-1 px-2 text-base">
+              Login
+            </LinkButton>
+          </li>
         </ul>
+
+        <Menu />
       </header>
     </nav>
   );

@@ -27,3 +27,8 @@ html.dark .bg-overlay {
 .icon-shadow {
   @apply drop-shadow-[2px_2px_#383838];
 }
+
+button.shadow,
+a.shadow {
+  @apply shadow-[2px_2px_rgb(0,0,0,0.5)];
+}

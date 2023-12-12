@@ -6,8 +6,9 @@ import Image from "next/image";
 
 import sun from "@/public/sun.png";
 import moon from "@/public/moon.png";
+import { twMerge } from "tailwind-merge";
 
-export const ThemeSwitch = () => {
+export const ThemeSwitch = ({ className }: { className?: string }) => {
   const { theme, setTheme } = useTheme();
 
   const switchThemes = () => {
@@ -22,7 +23,7 @@ export const ThemeSwitch = () => {
   return (
     <Button
       onClick={() => switchThemes()}
-      className="p-1"
+      className={twMerge("p-1", className)}
       aria-label="Theme Switch Button"
     >
       <Image
