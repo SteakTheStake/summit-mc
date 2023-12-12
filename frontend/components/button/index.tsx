@@ -4,9 +4,12 @@ import Link from "next/link";
 import { twMerge } from "tailwind-merge";
 
 function playSound() {
-  const sound = new Audio("/click.mp3");
-  sound.play();
-  setTimeout(() => sound.remove(), 500);
+  const muted = localStorage.getItem("muted");
+  if (muted !== "mute") {
+    const sound = new Audio("/click.mp3");
+    sound.play();
+    setTimeout(() => sound.remove(), 500);
+  }
 }
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
