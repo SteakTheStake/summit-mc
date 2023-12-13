@@ -2,9 +2,12 @@ import { LinkButton } from "@/components/button";
 import { Tier } from "@/payload-types";
 
 const getData = async () => {
-  const res = await fetch(process.env.NEXT_PUBLIC_API + "/api/tiers", {
-    next: { revalidate: 60 },
-  });
+  const res = await fetch(
+    process.env.NEXT_PUBLIC_API + "/api/tiers?sort=price",
+    {
+      next: { revalidate: 60 },
+    },
+  );
   if (!res.ok) {
     throw new Error("Failed to fetch pricing data.");
   }
