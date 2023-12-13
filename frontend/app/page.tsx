@@ -18,7 +18,9 @@ export default function Home() {
         <LinkButton href="/vault" className="w-full py-3">
           Vault
         </LinkButton>
-        <Button className="w-full py-3">Blogs</Button>
+        <LinkButton href="/blog" className="w-full py-3">
+          Blog
+        </LinkButton>
       </section>
     </main>
   );

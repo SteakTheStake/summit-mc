@@ -34,6 +34,7 @@ export const Menu = () => {
     { label: "Home", href: "/" },
     { label: "Pricing", href: "/pricing" },
     { label: "Summit+", href: "/summit-plus" },
+    { label: "Blog", href: "/blog" },
   ];
 
   if (mounted) {

@@ -7,7 +7,6 @@ const store = process.env.PATREON_NAME;
 
 export const { auth, signIn, signOut, handlers } = NextAuth({
   ...authConfig,
-  session: { strategy: "jwt" },
   providers: [
     Patreon({
       clientId: process.env.PATREON_CLIENT_ID,
@@ -19,8 +18,9 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
       },
     }),
   ],
+  session: { strategy: "jwt" },
   callbacks: {
-    async session({ session, token }) {
+    async session({ session, token, user }) {
       const { accessToken, id } = token;
       // @ts-ignore
       session.user.id = id;
@@ -38,7 +38,6 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
           },
         );
         const pledges: IsPlegdedProps = await pledeRes.json();
-
         const isPledged = pledges.included.find(
           (e) => e.attributes.url?.includes(store),
         );
@@ -58,9 +57,22 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
       } catch (err) {
         // @ts-ignore
         session.err = JSON.stringify(err);
+        // @ts-ignore
+        session.is_pledged = false;
+        // @ts-ignore
+        session.pledge_amount = 0;
       }
 
       return session;
+    },
+    jwt({ account, token, user }) {
+      if (user) {
+        token.id = user.id;
+      }
+      if (account) {
+        token.accessToken = account.access_token;
+      }
+      return token;
     },
   },
 });

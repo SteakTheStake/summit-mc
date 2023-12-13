@@ -24,6 +24,9 @@ export const Navbar = async () => {
           <li>
             <NavLink href="/summit-plus">Summit+</NavLink>
           </li>
+          <li>
+            <NavLink href="/blog">Blog</NavLink>
+          </li>
         </ul>
 
         <Link
