@@ -28,6 +28,16 @@ const Posts: CollectionConfig = {
         position: "sidebar",
       },
     },
+    {
+      name: "meta_img",
+      label: "Cover Image",
+      type: "relationship",
+      relationTo: "media",
+      required: true,
+      admin: {
+        position: "sidebar",
+      },
+    },
 
     {
       name: "layout",
