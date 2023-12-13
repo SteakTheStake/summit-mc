@@ -92,7 +92,7 @@ export const Navbar = async () => {
           </li>
         </ul>
 
-        <Menu />
+        <Menu session={session} />
       </header>
     </nav>
   );

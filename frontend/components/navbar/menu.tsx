@@ -9,8 +9,9 @@ import { createPortal } from "react-dom";
 import { NavLink } from "./client";
 import { LinkButton } from "@/components/button";
 import { ThemeSwitch } from "@/components/navbar/theme-switch";
+import { Session } from "next-auth";
 
-export const Menu = () => {
+export const Menu = ({ session }: { session: Session | null }) => {
   const pathname = usePathname();
 
   const [mounted, setMounted] = useState(false);
@@ -40,7 +41,11 @@ export const Menu = () => {
   if (mounted) {
     return (
       <>
-        <Button className="p-1 md:hidden" onClick={() => setOpen(true)}>
+        <Button
+          className="p-1 md:hidden"
+          onClick={() => setOpen(true)}
+          aria-label="Open menu button"
+        >
           <MenuIcon className="icon-shadow" />
         </Button>
 
@@ -110,12 +115,21 @@ export const Menu = () => {
                       <ThemeSwitch className="shadow" />
                     </li>
                     <li>
-                      <LinkButton
-                        href="/login"
-                        className="px-2 py-1 text-base shadow"
-                      >
-                        Login
-                      </LinkButton>
+                      {!session ? (
+                        <LinkButton
+                          href="/login"
+                          className="px-2 py-1 text-base shadow"
+                        >
+                          Login
+                        </LinkButton>
+                      ) : (
+                        <LinkButton
+                          href="/vault"
+                          className="px-2 py-1 text-base shadow"
+                        >
+                          Vault
+                        </LinkButton>
+                      )}
                     </li>
                   </ul>
                 </motion.div>
