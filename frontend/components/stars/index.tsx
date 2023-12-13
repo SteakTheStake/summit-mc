@@ -26,8 +26,8 @@ export const Stars = () => {
               ? Math.random() * vh * 2 * speed
               : Math.random() * vh * 2 * speed * -1,
           draw() {
-            this.x += 0.05 * speed;
-            this.y -= 0.3 * speed;
+            this.x += 0.25 * speed;
+            this.y -= 1 * speed;
             ctx.fillStyle = "white";
             ctx.fillRect(this.x, this.y, size, size);
           },
