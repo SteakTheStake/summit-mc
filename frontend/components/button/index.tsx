@@ -28,7 +28,7 @@ export const Button: React.FC<ButtonProps> = ({
     <button
       {...props}
       className={twMerge(
-        "px-6 py-4 flex items-center bg-zinc-600 rounded justify-center text-center text-white default-ts hover:border-white border-2 border-white/60 active:border-gray-400",
+        "default-ts flex items-center justify-center rounded border-2 border-white/60 bg-zinc-600 px-6 py-4 text-center text-white hover:border-white active:border-gray-400",
         className,
       )}
       style={{
@@ -62,7 +62,7 @@ export const LinkButton: React.FC<LinkButtonProps> = ({
       href={href}
       target={target}
       className={twMerge(
-        "px-6 py-4 flex items-center rounded bg-zinc-600 justify-center text-center text-white default-ts hover:border-white border-2 border-white/60 active:border-gray-400",
+        "default-ts flex items-center justify-center rounded border-2 border-white/60 bg-zinc-600 px-6 py-4 text-center text-white hover:border-white active:border-gray-400",
         className,
       )}
       style={{

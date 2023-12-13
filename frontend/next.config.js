@@ -1,4 +1,15 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const nextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        hostname: "*.patreonusercontent.com",
+      },
+      {
+        hostname: process.env.NEXT_PUBLIC_API,
+      },
+    ],
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

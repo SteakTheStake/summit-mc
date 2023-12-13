@@ -10,9 +10,9 @@ export const metadata: Metadata = {
 
 export default async function LoginPage() {
   return (
-    <main className="flex flex-col gap-4 items-center justify-center">
+    <main className="flex flex-col items-center justify-center gap-4">
       <PatreonButton />
-      <p className="sm:w-96 w-full text-lg">
+      <p className="w-full text-lg sm:w-96">
         By signing with Patreon, you agree to our{" "}
         <Link href="/privacy-policy" className="underline">
           Privacy Policy

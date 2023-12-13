@@ -16,7 +16,7 @@ export const HeroImage = () => {
       width={448}
       height={196}
       loading="eager"
-      className="max-w-md w-full"
+      className="w-full max-w-md"
     />
   );
 };

@@ -6,7 +6,6 @@ import { IsPlegdedProps } from "./auth-types";
 const store = process.env.PATREON_NAME;
 
 export const { auth, signIn, signOut, handlers } = NextAuth({
-  debug: true,
   ...authConfig,
   session: { strategy: "jwt" },
   providers: [
@@ -22,7 +21,6 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
   ],
   callbacks: {
     async session({ session, token }) {
-      console.log(token);
       const { accessToken, id } = token;
       // @ts-ignore
       session.user.id = id;

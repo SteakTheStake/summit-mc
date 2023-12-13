@@ -3,12 +3,12 @@ import { HeroImage } from "./home";
 
 export default function Home() {
   return (
-    <main className="flex flex-col gap-8 items-center justify-center">
-      <div className="w-full relative flex justify-center mt-4 px-4">
+    <main className="flex flex-col items-center justify-center gap-8">
+      <div className="relative mt-4 flex w-full justify-center px-4">
         <HeroImage />
       </div>
 
-      <section className="grid grid-cols-2 gap-3 w-full text-2xl">
+      <section className="grid w-full grid-cols-2 gap-3 text-2xl">
         <LinkButton href="/pricing" className="col-span-2 w-full py-3">
           Play Summit
         </LinkButton>
@@ -18,7 +18,7 @@ export default function Home() {
         <LinkButton href="/vault" className="w-full py-3">
           Vault
         </LinkButton>
-        <Button className="w-full py-3">Quit</Button>
+        <Button className="w-full py-3">Blogs</Button>
       </section>
     </main>
   );
