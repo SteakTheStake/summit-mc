@@ -39,6 +39,7 @@ export interface Post {
   id: string;
   title: string;
   subtitle: string;
+  meta_img: Media;
   layout?:
     | (
         | {

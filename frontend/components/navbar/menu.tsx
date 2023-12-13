@@ -34,7 +34,6 @@ export const Menu = ({ session }: { session: Session | null }) => {
   const links = [
     { label: "Home", href: "/" },
     { label: "Pricing", href: "/pricing" },
-    { label: "Summit+", href: "/summit-plus" },
     { label: "Blog", href: "/blog" },
   ];
 

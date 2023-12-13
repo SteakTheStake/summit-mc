@@ -6,7 +6,7 @@ const nextConfig = {
         hostname: "*.patreonusercontent.com",
       },
       {
-        hostname: process.env.NEXT_PUBLIC_API,
+        hostname: "localhost",
       },
     ],
   },

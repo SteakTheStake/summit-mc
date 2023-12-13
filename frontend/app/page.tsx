@@ -12,9 +12,6 @@ export default function Home() {
         <LinkButton href="/pricing" className="col-span-2 w-full py-3">
           Play Summit
         </LinkButton>
-        <LinkButton href="/summit-plus" className="col-span-2 w-full py-3">
-          Summit+
-        </LinkButton>
         <LinkButton href="/vault" className="w-full py-3">
           Vault
         </LinkButton>

@@ -1,6 +1,12 @@
 import { LinkButton } from "@/components/button";
 import { Tier } from "@/payload-types";
 
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "Pricing | SummitMC",
+  description: "Pricing details for SummitMC",
+};
+
 const getData = async () => {
   const res = await fetch(
     process.env.NEXT_PUBLIC_API + "/api/tiers?sort=price",
