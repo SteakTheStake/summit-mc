@@ -3,8 +3,14 @@ import { Post } from "@/payload-types";
 import Image from "next/image";
 import Link from "next/link";
 
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "Blog | SummitMC",
+  description: "Latest blog posts for SummitMC",
+};
+
 const getPosts = async () => {
-  const res = await fetch(process.env.NEXT_PUBLIC_API + "/api/posts", {
+  const res = await fetch(process.env.NEXT_PUBLIC_API + "/api/posts?limit=18", {
     next: { revalidate: 60 },
   });
   if (!res.ok) {

@@ -22,7 +22,7 @@ export default buildConfig({
     bundler: webpackBundler(),
   },
   editor: slateEditor({}),
-  collections: [Users, Posts, Downloads, Tiers, Packs, PackFiles, Media],
+  collections: [Users, Posts, Downloads, Tiers, Packs, Media, PackFiles],
   globals: [PrivacyPolicy],
   typescript: {
     outputFile: path.resolve("../frontend", "payload-types.ts"),
