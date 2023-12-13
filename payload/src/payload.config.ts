@@ -14,6 +14,8 @@ import Packs from "./collections/Packs";
 import PackFiles from "./collections/PackFiles";
 import Media from "./collections/Media";
 
+import PrivacyPolicy from "./blocks/globals/PrivacyPolicy";
+
 export default buildConfig({
   admin: {
     user: Users.slug,
@@ -21,8 +23,9 @@ export default buildConfig({
   },
   editor: slateEditor({}),
   collections: [Users, Posts, Downloads, Tiers, Packs, PackFiles, Media],
+  globals: [PrivacyPolicy],
   typescript: {
-    outputFile: path.resolve(__dirname, "payload-types.ts"),
+    outputFile: path.resolve("../../frontend", "payload-types.ts"),
   },
   graphQL: {
     schemaOutputFile: path.resolve(__dirname, "generated-schema.graphql"),
