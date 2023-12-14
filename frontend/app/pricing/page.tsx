@@ -33,6 +33,7 @@ export default async function Pricing() {
           visit our{" "}
           <a
             href="https://patreon.com/SummitMC"
+            target="_blank"
             className="text-yellow-400 underline"
           >
             Patreon
@@ -59,7 +60,11 @@ export default async function Pricing() {
               </ul>
             </div>
 
-            <LinkButton href={tier.join_link} className="mt-4 py-1 text-xl">
+            <LinkButton
+              href={tier.join_link}
+              target="_blank"
+              className="mt-4 py-1 text-xl"
+            >
               Join Now
             </LinkButton>
           </div>
