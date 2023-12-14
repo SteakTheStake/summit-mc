@@ -30,7 +30,7 @@ SECRET_KEY = env("SECRET")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False if env("DEBUG") == "False" else True
 
-ALLOWED_HOSTS = ["py.summitmc.xyz"]
+ALLOWED_HOSTS = ["py.summitmc.xyz", "127.0.0.1"]
 
 
 # Application definition
