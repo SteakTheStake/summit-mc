@@ -6,14 +6,19 @@ import { useEffect, useRef } from "react";
 export const Stars = () => {
   const { theme } = useTheme();
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const animationRef = useRef<number | null>(null);
+
+  return null;
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (canvas) {
       const ctx = canvas.getContext("2d")!;
 
-      let vw = window.innerHeight;
+      let vw = window.innerWidth;
       let vh = window.innerHeight;
+
+      let animationComplete = false;
 
       const Star = (size: number, speed: number) => {
         return {
@@ -53,6 +58,12 @@ export const Stars = () => {
         .map((i) => Star(4, 2.25));
 
       const animate = () => {
+        if (animationComplete) {
+          animationComplete = false;
+          requestAnimationFrame(animate);
+          return;
+        }
+
         const gradient = ctx.createRadialGradient(
           vw / 2,
           vh,
@@ -76,7 +87,13 @@ export const Stars = () => {
         closestStars.forEach((star) => {
           star.draw();
         });
-        requestAnimationFrame(animate);
+
+        const animationFrames = 3000;
+        if (animationRef.current && animationRef.current > animationFrames) {
+          animationComplete = true;
+        }
+
+        animationRef.current = requestAnimationFrame(animate);
       };
 
       const resizeCanvas = () => {
@@ -86,12 +103,31 @@ export const Stars = () => {
         canvas.height = vh;
       };
 
+      const handleResize = () => {
+        resizeCanvas();
+        animationComplete = true;
+      };
+
       resizeCanvas();
-      animate();
+      window.addEventListener("resize", handleResize);
+      animationRef.current = requestAnimationFrame(animate);
+
+      return () => {
+        window.removeEventListener("resize", handleResize);
+        if (animationRef.current) {
+          cancelAnimationFrame(animationRef.current);
+        }
+      };
     }
   }, [theme]);
 
-  return <canvas ref={canvasRef} width="400px" height="400px"></canvas>;
+  return (
+    <canvas
+      ref={canvasRef}
+      width={window.innerWidth}
+      height={window.innerHeight}
+    ></canvas>
+  );
 };
 
 /* https://codepen.io/cryin_bockritz/pen/wJaGLQ */
