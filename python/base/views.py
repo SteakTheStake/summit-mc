@@ -17,16 +17,20 @@ env = environ.Env()
 def upload_pack(req):
     if req.POST:
         try:
-            name = req.POST.get("name")
-            pack = req.POST.get("pack")
-            uploaded_file = req.FILES.get("pack_file")
             key = req.POST.get("key")
-            print(key, env("KEY"))
+            if key == env("KEY"):
+                id = req.POST.get("id")
+                name = req.POST.get("name")
+                pack = req.POST.get("pack")
+                uploaded_file = req.FILES.get("pack_file")
 
-            pack_file = PackFile(name=name, pack=pack, pack_file=uploaded_file)
-            pack_file.save()
+                pack_file = PackFile(
+                    id=id, name=name, pack=pack, pack_file=uploaded_file
+                )
+                pack_file.save()
 
-            return JsonResponse({"message": "File uploaded successfully."})
+                return JsonResponse({"message": "File uploaded successfully."})
+            raise Exception("Unauth")
         except:
             return JsonResponse({"message": "Failed to upload."})
 

@@ -15,6 +15,7 @@ export const Downloads = ({
   const [preparing, setPreparing] = useState(false);
   return (
     <ul className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      {preparing ? "yeah" : "no"}
       {downloads.map((download) => (
         <DownloadButton
           key={download.id}
@@ -48,7 +49,10 @@ const DownloadButton = ({
   };
 
   return (
-    <Button className="w-full py-1 text-xl">
+    <Button
+      className="w-full py-1 text-xl"
+      onClick={() => setPreparing(!preparing)}
+    >
       {name}&nbsp;<span className="text-amber-400">[{resolution}x]</span>
     </Button>
   );
