@@ -144,12 +144,17 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-CORS_ALLOWED_ORIGINS = ["http://localhost:3001", "http://localhost:3000"]
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3001",
+    "http://localhost:3000",
+    "https://payload.summitmc.xyz",
+]
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3001",
     "http://localhost:3000",
     "http://*",
     "http://localhost",
     "http://127.0.0.1",
+    "https://payload.summitmc.xyz",
 ]
 # CORS_ALLOW_ALL_ORIGINS: True
