@@ -8,6 +8,9 @@ const nextConfig = {
       {
         hostname: "localhost",
       },
+      {
+        hostname: "*.summitmc.xyz",
+      },
     ],
   },
 };
