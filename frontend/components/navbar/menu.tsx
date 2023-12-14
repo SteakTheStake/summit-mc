@@ -57,6 +57,9 @@ export const Menu = ({ session }: { session: Session | null }) => {
                   animate={{ opacity: 1, translateY: 0 }}
                   exit={{ opacity: 0, translateY: 40 }}
                   className="fixed inset-0 z-[2000] m-4 flex h-[calc(100%-2rem)] w-[calc(100%-2rem)] flex-col items-center justify-center gap-6 border-2 bg-[url(/bgbtn.png)] bg-contain"
+                  style={{
+                    imageRendering: "pixelated",
+                  }}
                 >
                   <Button
                     className="absolute right-0 top-0 m-4 h-max w-max p-1 shadow"

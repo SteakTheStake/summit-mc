@@ -121,13 +121,7 @@ export const Stars = () => {
     }
   }, [theme]);
 
-  return (
-    <canvas
-      ref={canvasRef}
-      width={window.innerWidth}
-      height={window.innerHeight}
-    ></canvas>
-  );
+  return <canvas ref={canvasRef} width="1920" height="1080"></canvas>;
 };
 
 /* https://codepen.io/cryin_bockritz/pen/wJaGLQ */

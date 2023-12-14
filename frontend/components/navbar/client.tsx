@@ -80,6 +80,7 @@ export const UserProfileDropdown = ({ session }: { session: Session }) => {
               background: "url(/bgbtn.png)",
               backgroundSize: "100% 200%",
               backgroundRepeat: "no-repeat",
+              imageRendering: "pixelated",
             }}
           >
             <DropdownMenu.Item>

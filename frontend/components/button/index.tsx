@@ -35,6 +35,7 @@ export const Button: React.FC<ButtonProps> = ({
         background: "url(/bgbtn.png)",
         backgroundSize: "100% 200%",
         backgroundRepeat: "no-repeat",
+        imageRendering: "pixelated",
       }}
       onClick={(e) => {
         playSound();
@@ -68,6 +69,8 @@ export const LinkButton: React.FC<LinkButtonProps> = ({
       style={{
         background: "url(/bgbtn.png)",
         backgroundSize: "100% 200%",
+        backgroundRepeat: "no-repeat",
+        imageRendering: "pixelated",
       }}
       onClick={(e) => {
         playSound();
