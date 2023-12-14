@@ -64,7 +64,7 @@ const Downloads: CollectionConfig = {
             })
             .then((file) => file.docs[0]);
 
-          const fileLocation = "src/" + filesDetails.url;
+          const fileLocation = "src" + filesDetails.url;
           const name = `${packDetails.title} ${release} [${resolution}]`;
           const fileData = fs.readFileSync(fileLocation);
           const blob = new Blob([fileData], { type: "application/zip" });
