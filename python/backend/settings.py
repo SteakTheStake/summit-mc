@@ -148,6 +148,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3001",
     "http://localhost:3000",
     "https://payload.summitmc.xyz",
+    "https://summitmc.xyz",
 ]
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3001",
@@ -156,5 +157,6 @@ CSRF_TRUSTED_ORIGINS = [
     "http://localhost",
     "http://127.0.0.1",
     "https://payload.summitmc.xyz",
+    "https://summitmc.xyz",
 ]
 # CORS_ALLOW_ALL_ORIGINS: True
