@@ -24,6 +24,7 @@ export default buildConfig({
     bundler: webpackBundler(),
     webpack: (config) => {
       config.resolve.fallback = {
+        crypto: false,
         os: false,
         fs: false,
       };
