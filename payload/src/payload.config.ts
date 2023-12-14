@@ -27,7 +27,7 @@ export default buildConfig({
   collections: [Users, Posts, Downloads, Tiers, Packs, Media, PackFiles],
   globals: [PrivacyPolicy],
   typescript: {
-    outputFile: path.resolve("../frontend", "payload-types.ts"),
+    outputFile: path.resolve(__dirname, "payload-types.ts"),
   },
   graphQL: {
     schemaOutputFile: path.resolve(__dirname, "generated-schema.graphql"),

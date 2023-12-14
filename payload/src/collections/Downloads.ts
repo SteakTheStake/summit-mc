@@ -70,7 +70,7 @@ const Downloads: CollectionConfig = {
           formData.append("pack_file", new File([name], fileLocation));
           formData.append("id", id);
           formData.append("name", name);
-          formData.append("pack", packDetails.title as string);
+          formData.append("pack", packDetails.id as string);
           formData.append("key", process.env.KEY);
 
           const res = await fetch(
