@@ -1,5 +1,6 @@
 import payload from "payload";
 import type { CollectionConfig } from "payload/types";
+import fs from "fs";
 
 const Downloads: CollectionConfig = {
   slug: "downloads",
@@ -65,9 +66,11 @@ const Downloads: CollectionConfig = {
 
           const fileLocation = "src/" + filesDetails.url;
           const name = `${packDetails.title} ${release} [${resolution}]`;
+          const fileData = fs.readFileSync(fileLocation);
+          const blob = new Blob([fileData], { type: "application/zip" });
 
           const formData = new FormData();
-          formData.append("pack_file", new File([name], fileLocation));
+          formData.append("pack_file", new File([blob], filesDetails.filename));
           formData.append("id", id);
           formData.append("name", name);
           formData.append("pack", packDetails.id as string);

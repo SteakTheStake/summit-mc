@@ -165,6 +165,7 @@ export const endpoints: Endpoint[] = [
               verified: true,
               email: pledges.data.attributes.email,
               discord_id: pledges.data.attributes.discord_id,
+              patreon_user_id: pledges.data.id,
             });
             return;
           }
