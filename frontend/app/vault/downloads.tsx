@@ -39,21 +39,55 @@ const DownloadButton = ({
   resolution,
   session,
 }: DownloadButtonProps) => {
-  const downloadPack = () => {
+  const downloadPack = async () => {
+    setPreparing(true);
     const body = {
       access_token: session.accessToken,
       patreon_id: session.user.id,
       is_pledged: session.is_pledged,
       pledge_amount: session.pledge_amount,
     };
+
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_PY_API}/api/get-download/${id}/`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(body),
+        },
+      );
+
+      if (res.ok) {
+        const blob = await res.blob();
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `${name} [${resolution}x]`;
+        a.click();
+        URL.revokeObjectURL(url);
+      } else {
+        console.error("Failed to download file.");
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setPreparing(false);
+    }
   };
 
   return (
     <Button
       className="w-full py-1 text-xl"
-      onClick={() => setPreparing(!preparing)}
+      disabled={preparing}
+      onClick={downloadPack}
     >
-      {name}&nbsp;<span className="text-amber-400">[{resolution}x]</span>
+      {name}&nbsp;
+      <span className="text-amber-400 disabled:opacity-50">
+        [{resolution}x]
+      </span>
     </Button>
   );
 };

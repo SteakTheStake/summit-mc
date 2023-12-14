@@ -30,7 +30,7 @@ SECRET_KEY = env("SECRET")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False if env("DEBUG") == "False" else True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -43,10 +43,19 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     #
+    "rest_framework",
     "base.apps.BaseConfig",
+    "corsheaders",
 ]
 
+
+REST_FRAMEWORK = {
+    "DEFAULT_THROTTLE_RATES": {"anon": "100/day", "user": "1000/day"},
+}
+
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
+    #
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -135,5 +144,12 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-CSRF_TRUSTED_ORIGINS = ["http://localhost:3001"]
-CORS_ALLOW_ALL_ORIGINS: True
+CORS_ALLOWED_ORIGINS = ["http://localhost:3001", "http://localhost:3000"]
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:3001",
+    "http://localhost:3000",
+    "http://*",
+    "http://localhost",
+    "http://127.0.0.1",
+]
+# CORS_ALLOW_ALL_ORIGINS: True
