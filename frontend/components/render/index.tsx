@@ -9,7 +9,7 @@ export const RenderBlocks = ({ layout }: { layout: any }) => {
     <div>
       {layout.map((block: any, i: number) => {
         if (block.blockType === "compare") {
-          return <Compare data={block} />;
+          return <Compare data={block} key={i} />;
         }
 
         // @ts-ignore

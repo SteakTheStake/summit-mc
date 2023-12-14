@@ -8,7 +8,7 @@ export const Stars = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationRef = useRef<number | null>(null);
 
-  return null;
+  // return null;
 
   useEffect(() => {
     const canvas = canvasRef.current;
