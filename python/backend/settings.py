@@ -30,7 +30,7 @@ SECRET_KEY = env("SECRET")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False if env("DEBUG") == "False" else True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["py.summitmc.xyz"]
 
 
 # Application definition
@@ -149,6 +149,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "https://payload.summitmc.xyz",
     "https://summitmc.xyz",
+    "https://py.summitmc.xyz",
 ]
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3001",
@@ -158,5 +159,6 @@ CSRF_TRUSTED_ORIGINS = [
     "http://127.0.0.1",
     "https://payload.summitmc.xyz",
     "https://summitmc.xyz",
+    "https://py.summitmc.xyz",
 ]
 # CORS_ALLOW_ALL_ORIGINS: True
