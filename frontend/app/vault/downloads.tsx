@@ -4,6 +4,7 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { Download } from "@/vault-types";
 import { Button } from "@/components/button";
 import { Session } from "./page";
+import { AnimatePresence, motion } from "framer-motion";
 
 export const Downloads = ({
   downloads,
@@ -14,8 +15,7 @@ export const Downloads = ({
 }) => {
   const [preparing, setPreparing] = useState(false);
   return (
-    <ul className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-      {preparing ? "yeah" : "no"}
+    <ul className="relative mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {downloads.map((download) => (
         <DownloadButton
           key={download.id}
@@ -27,6 +27,19 @@ export const Downloads = ({
           session={session}
         />
       ))}
+
+      <AnimatePresence>
+        {preparing && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0 }}
+            className="absolute inset-0 flex h-full w-full items-center justify-center bg-zinc-900/90"
+          >
+            <h1>Preparing your download! This may take a bit...</h1>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </ul>
   );
 };
@@ -80,14 +93,12 @@ const DownloadButton = ({
 
   return (
     <Button
-      className="w-full py-1 text-xl"
+      className="w-full py-1 text-xl transition-opacity disabled:opacity-10"
       disabled={preparing}
       onClick={downloadPack}
     >
       {name}&nbsp;
-      <span className="text-amber-400 disabled:opacity-50">
-        [{resolution}x]
-      </span>
+      <span className="text-amber-400">[{resolution}x]</span>
     </Button>
   );
 };
