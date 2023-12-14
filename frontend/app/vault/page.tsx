@@ -27,6 +27,7 @@ const getMyDownloads = async (session: Session) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(body),
+    cache: "no-cache",
   });
   if (!res.ok) {
     throw new Error(
@@ -45,9 +46,12 @@ export default async function Vault() {
     return (
       <main className="flex flex-col items-center justify-center gap-16 pt-16">
         <section className="w-full">
-          <h1 className="text-[clamp(3rem,4vw,8rem)] leading-[clamp(3rem,4vw,8rem)]">
-            Hello, {session?.user!.name}
-          </h1>
+          <div className="flex flex-col gap-4">
+            <LogoutButton />
+            <h1 className="text-[clamp(3rem,4vw,8rem)] leading-[clamp(3rem,4vw,8rem)]">
+              Hello, {session?.user!.name}
+            </h1>
+          </div>
           <div className="mt-4 bg-zinc-700/50 p-4">
             <h2 className="text-xl">User Subscription Details:</h2>
             <p className="text-lg text-white">
@@ -79,9 +83,12 @@ export default async function Vault() {
   return (
     <main className="flex flex-col items-center justify-center gap-16 pt-16">
       <section className="grid w-full grid-cols-1 items-end gap-4 xl:grid-cols-[1.3fr,0.7fr]">
-        <h1 className="text-[clamp(3rem,4vw,8rem)] leading-[clamp(3rem,4vw,8rem)]">
-          Hello, {session?.user!.name}
-        </h1>
+        <div className="flex flex-col gap-4">
+          <LogoutButton />
+          <h1 className="text-[clamp(3rem,4vw,8rem)] leading-[clamp(3rem,4vw,8rem)]">
+            Hello, {session?.user!.name}
+          </h1>
+        </div>
         <div className="bg-zinc-700/50 p-4 sm:w-max xl:w-full">
           <h2 className="text-xl">User Subscription Details:</h2>
           <ul className="flex list-disc flex-col pl-4 text-lg text-white">

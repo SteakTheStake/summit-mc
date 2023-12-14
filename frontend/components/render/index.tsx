@@ -1,5 +1,6 @@
 "use client";
 
+import { Compare } from "./image-compare";
 import { Component as content } from "./rich-text";
 const components = { content };
 
@@ -7,7 +8,10 @@ export const RenderBlocks = ({ layout }: { layout: any }) => {
   return (
     <div>
       {layout.map((block: any, i: number) => {
-        console.log(layout);
+        if (block.blockType === "compare") {
+          return <Compare data={block} />;
+        }
+
         // @ts-ignore
         const Block: React.FC<any> = components[block.blockType];
 

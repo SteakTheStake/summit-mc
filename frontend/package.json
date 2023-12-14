@@ -18,6 +18,7 @@
     "next-auth": "^5.0.0-beta.4",
     "next-themes": "^0.2.1",
     "react": "^18",
+    "react-compare-slider": "^3.0.1",
     "react-dom": "^18",
     "slate": "^0.101.4",
     "tailwind-merge": "^2.1.0"
