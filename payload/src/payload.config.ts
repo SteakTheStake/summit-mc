@@ -16,6 +16,8 @@ import Media from "./collections/Media";
 
 import PrivacyPolicy from "./blocks/globals/PrivacyPolicy";
 
+import { endpoints } from "./endpoints";
+
 export default buildConfig({
   admin: {
     user: Users.slug,
@@ -34,4 +36,5 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.DATABASE_URI,
   }),
+  endpoints,
 });

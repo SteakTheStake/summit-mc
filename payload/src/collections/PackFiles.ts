@@ -11,6 +11,14 @@ const PackFiles: CollectionConfig = {
     mimeTypes: ["application/zip"],
   },
   fields: [],
+  hooks: {
+    afterChange: [
+      async ({ doc: { url } }) => {
+        const fileLocation = "src/" + url;
+        const filesFolder = "src/files/unzipped";
+      },
+    ],
+  },
 };
 
 export default PackFiles;

@@ -6,6 +6,7 @@ declare global {
       DATABASE_URI: string;
       PAYLOAD_SECRET: string;
       PORT: number;
+      PATREON_NAME: string;
     }
   }
 }

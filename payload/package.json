@@ -22,12 +22,16 @@
     "@payloadcms/richtext-slate": "^1.0.0",
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
+    "decompress": "^4.2.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "payload": "^2.0.0"
+    "payload": "^2.0.0",
+    "stream-browserify": "^3.0.0",
+    "yauzl": "^2.10.0"
   },
   "devDependencies": {
     "@types/express": "^4.17.9",
+    "@types/yauzl": "^2.10.3",
     "copyfiles": "^2.4.1",
     "nodemon": "^2.0.6",
     "prettier": "^3.1.1",
