@@ -32,7 +32,11 @@ export const MuteButton = () => {
 
   if (mounted) {
     return (
-      <Button className="p-1" onClick={updateMuteOptions}>
+      <Button
+        className="p-1"
+        onClick={updateMuteOptions}
+        aria-label="Mute button click sounds button"
+      >
         {muted ? <LucideVolumeX /> : <LucideVolume2 />}
       </Button>
     );

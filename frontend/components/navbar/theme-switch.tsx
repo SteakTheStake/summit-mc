@@ -26,7 +26,7 @@ export const ThemeSwitch = ({ className }: { className?: string }) => {
       aria-label="Theme Switch Button"
     >
       <Image
-        src={theme === "dark" ? moon : theme === "sun" ? sun : moon}
+        src={theme === "dark" ? moon : theme === "light" ? sun : moon}
         alt="Image of sun/moon depending on theme"
         height={24}
         width={24}
