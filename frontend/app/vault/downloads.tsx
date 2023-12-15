@@ -78,7 +78,7 @@ const DownloadButton = ({
         const url = URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;
-        a.download = `${name} [${resolution}x]`;
+        a.download = `${name} [${resolution}x].zip`;
         a.click();
         URL.revokeObjectURL(url);
       } else {
