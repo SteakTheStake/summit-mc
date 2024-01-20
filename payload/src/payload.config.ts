@@ -11,8 +11,9 @@ import Posts from "./collections/Posts";
 import Downloads from "./collections/Downloads";
 import Tiers from "./collections/Tiers";
 import Packs from "./collections/Packs";
-import PackFiles from "./collections/PackFiles";
+import Codes from "./collections/Codes";
 import Media from "./collections/Media";
+import PackFiles from "./collections/PackFiles";
 
 import PrivacyPolicy from "./blocks/globals/PrivacyPolicy";
 
@@ -33,7 +34,7 @@ export default buildConfig({
     },
   },
   editor: slateEditor({}),
-  collections: [Users, Posts, Downloads, Tiers, Packs, Media, PackFiles],
+  collections: [Users, Posts, Downloads, Tiers, Packs, Codes, Media, PackFiles],
   globals: [PrivacyPolicy],
   typescript: {
     outputFile: path.resolve(__dirname, "payload-types.ts"),

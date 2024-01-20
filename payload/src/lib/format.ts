@@ -21,3 +21,24 @@ export const formatSlug =
 
     return value;
   };
+
+function generate() {
+  let code = "";
+  const characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  for (let i = 0; i < 6; i++) {
+    code += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+  return code;
+}
+
+export const generateCode =
+  (fallback: string): FieldHook =>
+  ({ value, originalDoc, data }) => {
+    const smcRegex = /^smc-[a-zA-Z0-9]{6}$/;
+    if (value && smcRegex.test(value)) {
+      return value;
+    }
+
+    return `smc-${generate()}`;
+  };
