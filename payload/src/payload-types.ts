@@ -13,6 +13,7 @@ export interface Config {
     downloads: Download;
     tiers: Tier;
     packs: Pack;
+    codes: Code;
     media: Media;
     files: File;
     'payload-preferences': PayloadPreference;
@@ -137,6 +138,17 @@ export interface File {
   filesize?: number | null;
   width?: number | null;
   height?: number | null;
+}
+export interface Code {
+  id: string;
+  code?: string | null;
+  discord_id?: number | null;
+  uses_remaining: number;
+  expiry: string;
+  is_used?: boolean | null;
+  tier: string | Tier;
+  updatedAt: string;
+  createdAt: string;
 }
 export interface PayloadPreference {
   id: string;

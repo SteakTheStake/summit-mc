@@ -63,10 +63,9 @@ const Codes: CollectionConfig = {
       },
     },
     {
-      name: "tiers",
+      name: "tier",
       type: "relationship",
       relationTo: "tiers",
-      hasMany: true,
       required: true,
     },
   ],

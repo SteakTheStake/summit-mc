@@ -188,6 +188,112 @@ export const endpoints: Endpoint[] = [
       }
     },
   },
+
+  {
+    path: "/check-code",
+    method: "post",
+    handler: async (req, res, next) => {
+      try {
+        const {
+          access_token,
+          code,
+        }: {
+          access_token: string;
+          code: string;
+        } = req.body;
+
+        if (!access_token || !code) {
+          res.status(403).json({
+            message: "Failed to fetch data",
+          });
+          return;
+        }
+
+        const codeDocs = await payload.find({
+          collection: "codes",
+          where: {
+            code: {
+              equals: code,
+            },
+          },
+          depth: 1,
+        });
+
+        if (!codeDocs.totalDocs) {
+          res.status(404).json({
+            message: "Entered code doesn't exist.",
+          });
+          return;
+        }
+
+        const codeDoc = codeDocs.docs[0];
+        const { tier, uses_remaining, is_used, expiry } = codeDoc;
+
+        const today = new Date();
+        const expiryDate = new Date(expiry);
+        if (
+          today > expiryDate ||
+          !uses_remaining ||
+          is_used ||
+          typeof tier === "string"
+        ) {
+          res.status(403).json({
+            message: "Entered code has expired.",
+          });
+          return;
+        }
+
+        const packs = await payload.find({
+          collection: "packs",
+          where: {
+            tiers: {
+              equals: tier.id,
+            },
+          },
+        });
+        const packList = packs.docs.map((pack) => {
+          const { id, title } = pack;
+          return { id, title };
+        });
+
+        const downloads = await payload.find({
+          collection: "downloads",
+          where: {
+            and: [
+              {
+                tiers: {
+                  equals: tier.id,
+                },
+              },
+            ],
+          },
+        });
+        const downloadList = downloads.docs.map((download) => {
+          const { id, release, resolution, pack } = download;
+          // @ts-ignore
+          const { title } = pack;
+          return {
+            id,
+            release,
+            resolution,
+            name: `${title} ${release}`,
+          };
+        });
+
+        res.status(200).json({
+          code: codeDoc.code,
+          tier: tier,
+          packs: packList,
+          downloads: downloadList,
+        });
+      } catch (err) {
+        console.error(err);
+        res.status(500).json({
+          error: true,
+        });
+      }
+    },
+  },
 ];
 
 interface IsPlegdedProps {
