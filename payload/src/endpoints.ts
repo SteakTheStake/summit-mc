@@ -136,14 +136,17 @@ export const endpoints: Endpoint[] = [
           },
         );
         const pledges: IsPlegdedProps = await pledgeRes.json();
-        const isPledged = pledges.included.find((e) => {
-          if (e.attributes) {
-            if (e.attributes.url) {
-              return e.attributes.url?.includes(process.env.PATREON_NAME);
-            }
-          }
-          return false;
-        });
+        const isPledged =
+          pledges && pledges.included
+            ? pledges.included.find((e) => {
+                if (e.attributes) {
+                  if (e.attributes.url) {
+                    return e.attributes.url?.includes(process.env.PATREON_NAME);
+                  }
+                }
+                return false;
+              })
+            : false;
 
         const checkPatreonId = patreon_id === pledges.data.id;
         const checkPledgeAmount =
@@ -161,7 +164,7 @@ export const endpoints: Endpoint[] = [
             depth: 0,
           });
 
-          if (!code && downloadDoc.pack === pack_id) {
+          if (!code && isPledged && downloadDoc.pack === pack_id) {
             const amount = isPledged.attributes
               ? Math.round(isPledged.attributes.amount / 100)
               : 0;
