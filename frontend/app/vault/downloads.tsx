@@ -15,7 +15,7 @@ export const Downloads = ({
   downloads: Download[];
   session: AuthSession;
   code?: string;
-  reval: () => void;
+  reval?: () => void;
 }) => {
   const [preparing, setPreparing] = useState(false);
 
@@ -98,7 +98,9 @@ const DownloadButton = ({
       console.error(err);
     } finally {
       setPreparing(false);
-      reval();
+      if (reval) {
+        reval();
+      }
     }
   };
 
@@ -122,5 +124,5 @@ interface DownloadButtonProps {
   resolution: number;
   session: AuthSession;
   code?: string;
-  reval: () => void;
+  reval?: () => void;
 }
