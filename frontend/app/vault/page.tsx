@@ -1,4 +1,5 @@
 import { auth } from "@/auth";
+import type { Session as AuthSession } from "next-auth";
 import { LogoutButton } from ".";
 
 import { Metadata } from "next";
@@ -6,17 +7,19 @@ import Link from "next/link";
 import { UserSubscriptionDetails } from "@/vault-types";
 import { Button } from "@/components/button";
 import { Downloads } from "./downloads";
-export const metadata = async (): Promise<Metadata> => {
+import { redirect } from "next/navigation";
+
+export async function generateMetadata(): Promise<Metadata> {
   const session = await auth();
   return {
     title: `${session!.user!.name}'s Vault | SummitMC`,
   };
-};
+}
 
-const getMyDownloads = async (session: Session) => {
+const getMyDownloads = async (session: AuthSession) => {
   const body = {
     access_token: session.accessToken,
-    patreon_id: session.user.id,
+    patreon_id: session.user!.id,
     is_pledged: session.is_pledged,
     pledge_amount: session.pledge_amount,
   };
@@ -39,8 +42,22 @@ const getMyDownloads = async (session: Session) => {
 };
 
 export default async function Vault() {
-  // @ts-ignore
-  const session: Session = await auth();
+  const session = await auth();
+
+  async function redirectToRedeem(formData: FormData) {
+    "use server";
+
+    const code = formData.get("redeem-code");
+    if (!code) {
+      return;
+    }
+
+    redirect("/vault/redeem?code=" + code);
+  }
+
+  if (!session) {
+    return null;
+  }
 
   if (!session.is_pledged) {
     return (
@@ -62,6 +79,26 @@ export default async function Vault() {
               and pick a plan to access latest downloads!
             </p>
           </div>
+          <form className="mt-8" action={redirectToRedeem}>
+            <label htmlFor="redeem-code" className="flex flex-col gap-2">
+              <span className="text-2xl text-white">Redeem Code</span>
+              <input
+                id="redee-code"
+                name="redeem-code"
+                className="max-w-64 rounded border-2 border-white/60 bg-zinc-600 px-6 py-4 text-lg text-white hover:border-white active:border-gray-400"
+                style={{
+                  background:
+                    "linear-gradient(0deg, rgba(13, 0, 23, 0.6), rgba(13, 0, 23, 0.6)), url(/bgbtn.png)",
+                  backgroundSize: "100% 200%",
+                  backgroundRepeat: "no-repeat",
+                  imageRendering: "pixelated",
+                }}
+              />
+            </label>
+            <Button type="submit" className="mt-2 py-2">
+              Submit
+            </Button>
+          </form>
         </section>
       </main>
     );

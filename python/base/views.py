@@ -46,9 +46,24 @@ def get_download(req, pk):
         patreon_id = data["patreon_id"]
         is_pledged = data["is_pledged"]
         pledge_amount = data["pledge_amount"]
+        if "code" in data:
+            code = data["code"]
+        else:
+            code = {}
+
+        if len(code) > 8:
+            url = env("API_URL") + "/api/check-code"
+            check_code = requests.post(
+                url, data={"code": code, "access_token": access_token}
+            )
+            if check_code.status_code == 200:
+                code = check_code.json()
+            else:
+                code = {}
+
         download_file = PackFile.objects.get(id=pk)
 
-        if is_pledged != "true" and int(pledge_amount) < 200:
+        if (not code) and (is_pledged != "true" and int(pledge_amount) < 200):
             raise Exception("Fraudulant data")
 
         data = {
@@ -58,18 +73,22 @@ def get_download(req, pk):
             "pledge_amount": pledge_amount,
             "pack_id": download_file.pack,
             "download_id": pk,
+            "code": code["code"]["code"],
         }
 
         url = env("API_URL") + "/api/verify-user"
         res = requests.post(url, data=data)
-        if res.status_code == 200:
+        res_data = {}
+
+        check_code = "tier" in code and "code" in code
+        if check_code or (res.status_code == 200):
             res_data = res.json()
-        elif res_data["error"] == True:
+        elif "error" in res_data:
             raise Exception("Can't access this file")
         else:
             raise Exception("Can't access this file")
 
-        if res_data["verified"] == True:
+        if check_code or res_data["verified"]:
             email = res_data["email"]
             discord_id = res_data["discord_id"]
             patreon_user_id = res_data["patreon_user_id"]
@@ -87,7 +106,7 @@ def get_download(req, pk):
                     for item in original_zip.infolist():
                         content = original_zip.read(item.filename)
                         if item.filename == "pack.mcmeta":
-                            content += f"\n// {patreon_user_id}\n// {email}\n// {discord_id}".encode(
+                            content += f"\n// {patreon_user_id}\n// {email}\n// {discord_id}\n// {code['code']['code'] if check_code else ''}".encode(
                                 "utf-8"
                             )
 

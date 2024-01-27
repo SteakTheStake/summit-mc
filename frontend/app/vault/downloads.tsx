@@ -3,17 +3,22 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import { Download } from "@/vault-types";
 import { Button } from "@/components/button";
-import { Session } from "./page";
+import { Session as AuthSession } from "next-auth";
 import { AnimatePresence, motion } from "framer-motion";
 
 export const Downloads = ({
   downloads,
   session,
+  code,
+  reval,
 }: {
   downloads: Download[];
-  session: Session;
+  session: AuthSession;
+  code?: string;
+  reval: () => void;
 }) => {
   const [preparing, setPreparing] = useState(false);
+
   return (
     <ul className="relative mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {downloads.map((download) => (
@@ -25,6 +30,8 @@ export const Downloads = ({
           preparing={preparing}
           setPreparing={setPreparing}
           session={session}
+          code={code}
+          reval={reval}
         />
       ))}
 
@@ -51,12 +58,15 @@ const DownloadButton = ({
   name,
   resolution,
   session,
+  code,
+  reval,
 }: DownloadButtonProps) => {
   const downloadPack = async () => {
     setPreparing(true);
     const body = {
+      code,
       access_token: session.accessToken,
-      patreon_id: session.user.id,
+      patreon_id: session.user!.id,
       is_pledged: session.is_pledged,
       pledge_amount: session.pledge_amount,
     };
@@ -88,6 +98,7 @@ const DownloadButton = ({
       console.error(err);
     } finally {
       setPreparing(false);
+      reval();
     }
   };
 
@@ -109,5 +120,7 @@ interface DownloadButtonProps {
   id: string;
   name: string;
   resolution: number;
-  session: Session;
+  session: AuthSession;
+  code?: string;
+  reval: () => void;
 }

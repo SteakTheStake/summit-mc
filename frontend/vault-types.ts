@@ -30,3 +30,12 @@ export interface Download {
   resolution: number;
   name: string;
 }
+
+export interface UserCodeDetails extends UserSubscriptionDetails {
+  code: {
+    code: string;
+    uses_remaining: number;
+    expiry: string;
+  };
+  message?: string;
+}

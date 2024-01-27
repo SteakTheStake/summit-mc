@@ -20,9 +20,14 @@ export const endpoints: Endpoint[] = [
           },
         );
         const pledges: IsPlegdedProps = await pledgeRes.json();
-        const isPledged = pledges.included.find(
-          (e) => e.attributes.url?.includes(process.env.PATREON_NAME),
-        );
+        const isPledged = pledges.included.find((e) => {
+          if (e.attributes) {
+            if (e.attributes.url) {
+              return e.attributes.url?.includes(process.env.PATREON_NAME);
+            }
+          }
+          return false;
+        });
 
         const checkPatreonId = patreon_id === pledges.data.id;
         const checkPledgeAmount =
@@ -111,8 +116,14 @@ export const endpoints: Endpoint[] = [
     method: "post",
     handler: async (req, res, next) => {
       const body = req.body;
-      const { access_token, patreon_id, pledge_amount, pack_id, download_id } =
-        body;
+      const {
+        access_token,
+        patreon_id,
+        pledge_amount,
+        pack_id,
+        download_id,
+        code,
+      } = body;
 
       try {
         const pledgeRes = await fetch(
@@ -125,23 +136,35 @@ export const endpoints: Endpoint[] = [
           },
         );
         const pledges: IsPlegdedProps = await pledgeRes.json();
-        const isPledged = pledges.included.find(
-          (e) => e.attributes.url?.includes(process.env.PATREON_NAME),
-        );
+        const isPledged = pledges.included.find((e) => {
+          if (e.attributes) {
+            if (e.attributes.url) {
+              return e.attributes.url?.includes(process.env.PATREON_NAME);
+            }
+          }
+          return false;
+        });
 
         const checkPatreonId = patreon_id === pledges.data.id;
         const checkPledgeAmount =
-          Number(pledge_amount) === isPledged.attributes.amount;
+          isPledged && isPledged.attributes
+            ? Number(pledge_amount) === isPledged.attributes.amount
+            : false;
 
-        if (checkPatreonId && checkPledgeAmount && isPledged) {
+        if (
+          (code && code.length > 8) ||
+          (checkPatreonId && checkPledgeAmount && isPledged)
+        ) {
           const downloadDoc = await payload.findByID({
             collection: "downloads",
             id: download_id,
             depth: 0,
           });
 
-          if (downloadDoc.pack === pack_id) {
-            const amount = Math.round(isPledged.attributes.amount / 100);
+          if (!code && downloadDoc.pack === pack_id) {
+            const amount = isPledged.attributes
+              ? Math.round(isPledged.attributes.amount / 100)
+              : 0;
             const tierDoc = await payload.find({
               collection: "tiers",
               where: {
@@ -151,13 +174,13 @@ export const endpoints: Endpoint[] = [
               },
             });
 
-            if (tierDoc.totalDocs === 0) {
+            if (!code || tierDoc.totalDocs === 0) {
               throw new Error("Unauth");
             }
 
             const tierId = tierDoc.docs[0].id;
 
-            if (!downloadDoc.tiers.includes(tierId)) {
+            if (!code || !downloadDoc.tiers.includes(tierId)) {
               throw new Error("Unauth");
             }
 
@@ -170,14 +193,71 @@ export const endpoints: Endpoint[] = [
             return;
           }
 
+          const codeDocs = await payload.find({
+            collection: "codes",
+            where: {
+              code: {
+                equals: code,
+              },
+            },
+          });
+          if (code && codeDocs.totalDocs < 1) {
+            throw new Error("Fraudulent");
+          }
+          const codeDoc = codeDocs.docs[0];
+          await payload.update({
+            collection: "codes",
+            where: {
+              code: {
+                equals: codeDoc.code,
+              },
+            },
+            data: {
+              code: codeDoc.code,
+              uses_remaining: codeDoc.uses_remaining - 1,
+              is_used: codeDoc.uses_remaining - 1 < 1,
+            },
+          });
+
           res.status(402).json({
             message: "Invalid access",
             error: true,
+            email: pledges.data.attributes.email,
+            discord_id: pledges.data.attributes.discord_id,
+            patreon_user_id: pledges.data.id,
           });
           return;
         } else {
+          const codeDocs = await payload.find({
+            collection: "codes",
+            where: {
+              code: {
+                equals: code,
+              },
+            },
+          });
+          if (code && codeDocs.totalDocs < 1) {
+            throw new Error("Fraudulent");
+          }
+          const codeDoc = codeDocs.docs[0];
+          await payload.update({
+            collection: "codes",
+            where: {
+              code: {
+                equals: codeDoc.code,
+              },
+            },
+            data: {
+              code: codeDoc.code,
+              uses_remaining: codeDoc.uses_remaining - 1,
+              is_used: codeDoc.uses_remaining - 1 < 1,
+            },
+          });
           res.status(403).json({
             error: true,
+            email: pledges.data.attributes.email,
+            discord_id: pledges.data.attributes.discord_id,
+            patreon_user_id: pledges.data.id,
           });
           return;
         }
@@ -281,7 +361,11 @@ export const endpoints: Endpoint[] = [
         });
 
         res.status(200).json({
-          code: codeDoc.code,
+          code: {
+            code: codeDoc.code,
+            uses_remaining,
+            expiry,
+          },
           tier: tier,
           packs: packList,
           downloads: downloadList,
