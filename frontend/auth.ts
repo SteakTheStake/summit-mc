@@ -24,6 +24,7 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
       const { accessToken, id } = token;
       // @ts-ignore
       session.user.id = id;
+      // @ts-ignore
       session.accessToken = accessToken;
 
       try {
@@ -43,15 +44,22 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
 
         if (isPledged && isPledged.attributes.amount) {
           const amount = isPledged.attributes.amount;
+          // @ts-ignore
           session.is_pledged = amount > 299 ? true : false;
+          // @ts-ignore
           session.pledge_amount = amount;
         } else {
+          // @ts-ignore
           session.is_pledged = false;
+          // @ts-ignore
           session.pledge_amount = 0;
         }
       } catch (err) {
+        // @ts-ignore
         session.err = JSON.stringify(err);
+        // @ts-ignore
         session.is_pledged = false;
+        // @ts-ignore
         session.pledge_amount = 0;
       }
 
