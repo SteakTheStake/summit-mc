@@ -35,6 +35,12 @@ const Tiers: CollectionConfig = {
       },
     },
     {
+      name: "is_free",
+      label: "Is Free?",
+      type: "checkbox",
+      unique: true,
+    },
+    {
       name: "included",
       type: "array",
       minRows: 1,

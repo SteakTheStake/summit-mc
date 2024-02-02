@@ -124,6 +124,7 @@ export interface Tier {
         id?: string | null;
       }[]
     | null;
+  is_free?: boolean;
   updatedAt: string;
   createdAt: string;
 }

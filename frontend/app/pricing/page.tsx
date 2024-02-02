@@ -23,6 +23,7 @@ const getData = async () => {
 
 export default async function Pricing() {
   const pricing: { docs: Tier[] } = await getData();
+  const freeTier = pricing.docs.filter((e) => e.is_free);
 
   return (
     <main className="flex flex-col items-center justify-center pt-16">
@@ -43,6 +44,32 @@ export default async function Pricing() {
       </section>
 
       <section className="mt-16 grid w-full grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
+        {freeTier.map((tier) => (
+          <div
+            key={tier.id}
+            className="flex flex-col justify-between bg-zinc-700/50 p-4"
+          >
+            <div>
+              <h1 className="text-2xl">{tier.name}</h1>
+              <p className="text-3xl text-white">${tier.price}/m</p>
+
+              <h2 className="mt-3 text-xl">What&apos; Included:</h2>
+              <ul className="flex list-disc flex-col pl-5 text-lg text-white">
+                {tier.included!.map((item, i) => (
+                  <li key={i}>{item.item}</li>
+                ))}
+              </ul>
+            </div>
+
+            <LinkButton
+              href={tier.join_link}
+              target="_blank"
+              className="mt-4 py-1 text-xl"
+            >
+              Join Now
+            </LinkButton>
+          </div>
+        ))}
         {pricing.docs.map((tier) => (
           <div
             key={tier.id}
