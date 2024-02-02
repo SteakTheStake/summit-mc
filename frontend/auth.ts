@@ -20,6 +20,7 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
   ],
   session: { strategy: "jwt" },
   callbacks: {
+    // @ts-ignore
     async session({ session, token, user }) {
       const { accessToken, id } = token;
       // @ts-ignore
