@@ -40,7 +40,7 @@ export default async function Redeem({
   }
 
   const session = await auth();
-  if (!session) return null;
+  if (!session) return <main></main>;
 
   const packList = () => {
     if (packs.length === 1) {

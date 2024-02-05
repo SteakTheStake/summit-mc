@@ -18,6 +18,20 @@ export default function Home() {
         <LinkButton href="/blog" className="w-full py-3">
           Blog
         </LinkButton>
+        <LinkButton
+          href="https://bisecthosting.com/SummitMC"
+          target="_blank"
+          className="w-full py-3 max-sm:col-span-2"
+        >
+          Bisect Hosting
+        </LinkButton>
+        <LinkButton
+          href="https://modrinth.com/resourcepack/summit"
+          target="_blank"
+          className="w-full py-3 max-sm:col-span-2"
+        >
+          Free Version
+        </LinkButton>
       </section>
     </main>
   );
