@@ -8,7 +8,7 @@ const PackFiles: CollectionConfig = {
   upload: {
     staticURL: "/files",
     staticDir: "files",
-    mimeTypes: ["application/zip"],
+    // mimeTypes: ["application/zip"],
   },
   fields: [],
   hooks: {
