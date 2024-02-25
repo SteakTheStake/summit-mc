@@ -49,7 +49,12 @@ export default buildConfig({
   endpoints,
   upload: {
     limits: {
-      fileSize: 5000000000,
+      fileSize: 5000000000000,
+    },
+  },
+  express: {
+    json: {
+      limit: 5000000000000,
     },
   },
 });
