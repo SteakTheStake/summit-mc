@@ -47,4 +47,9 @@ export default buildConfig({
     url: process.env.DATABASE_URI,
   }),
   endpoints,
+  upload: {
+    limits: {
+      fileSize: 5000000000,
+    },
+  },
 });
