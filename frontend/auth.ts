@@ -39,21 +39,30 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
           },
         );
         const pledges: IsPlegdedProps = await pledeRes.json();
-        const isPledged = pledges.included.find((e) =>
-          e.attributes.url?.includes(store),
-        );
+        if (pledges && pledges.included && pledges.included.length > 0) {
+          const isPledged = pledges.included.find((e) => {
+            if (e) {
+              if (e.attributes) {
+                if (e.attributes.url) {
+                  return e.attributes.url?.includes(store);
+                }
+              }
+            }
+            return false;
+          });
 
-        if (isPledged && isPledged.attributes.amount) {
-          const amount = isPledged.attributes.amount;
-          // @ts-ignore
-          session.is_pledged = amount > 299 ? true : false;
-          // @ts-ignore
-          session.pledge_amount = amount;
-        } else {
-          // @ts-ignore
-          session.is_pledged = false;
-          // @ts-ignore
-          session.pledge_amount = 0;
+          if (isPledged && isPledged.attributes.amount) {
+            const amount = isPledged.attributes.amount;
+            // @ts-ignore
+            session.is_pledged = amount > 299 ? true : false;
+            // @ts-ignore
+            session.pledge_amount = amount;
+          } else {
+            // @ts-ignore
+            session.is_pledged = false;
+            // @ts-ignore
+            session.pledge_amount = 0;
+          }
         }
       } catch (err) {
         // @ts-ignore
