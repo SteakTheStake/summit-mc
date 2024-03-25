@@ -1,11 +1,31 @@
 import NextAuth from "next-auth";
 import { authConfig } from "./auth.config";
 import Patreon from "next-auth/providers/patreon";
-import { IsPlegdedProps } from "./auth-types";
 
-const store = process.env.PATREON_NAME;
+const cId = process.env.PATREON_CID;
+async function getUser(accessToken: string) {
+  const res = await fetch(
+    "https://www.patreon.com/api/oauth2/v2/identity?include=memberships,memberships.currently_entitled_tiers,memberships.campaign&fields%5Bmember%5D=currently_entitled_amount_cents,patron_status",
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    },
+  );
 
-export const { auth, signIn, signOut, handlers } = NextAuth({
+  const data: PatreonUserProps = await res.json();
+  const pledges = data.included;
+  return pledges.filter(
+    (p) =>
+      p &&
+      p.attributes &&
+      p.attributes.currently_entitled_amount_cents > 10 &&
+      p.attributes.patron_status === "active_patron" &&
+      p.relationships.campaign.data.id === cId,
+  );
+}
+
+export const { handlers, auth, signIn, signOut } = NextAuth({
   ...authConfig,
   providers: [
     Patreon({
@@ -21,59 +41,31 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
   session: { strategy: "jwt" },
   callbacks: {
     // @ts-ignore
-    async session({ session, token, user }) {
-      const { accessToken, id } = token;
-      // @ts-ignore
-      session.user.id = id;
-      // @ts-ignore
-      session.accessToken = accessToken;
-
+    async session({ session, token }) {
       try {
-        const pledeRes = await fetch(
-          "https://www.patreon.com/api/oauth2/api/current_user",
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          },
-        );
-        const pledges: IsPlegdedProps = await pledeRes.json();
-        if (pledges && pledges.included && pledges.included.length > 0) {
-          const isPledged = pledges.included.find((e) => {
-            if (e) {
-              if (e.attributes) {
-                if (e.attributes.url) {
-                  return e.attributes.url?.includes(store);
-                }
-              }
-            }
-            return false;
-          });
+        const { accessToken, id } = token;
+        session.user!.id = id;
+        session.accessToken = accessToken;
 
-          if (isPledged && isPledged.attributes.amount) {
-            const amount = isPledged.attributes.amount;
-            // @ts-ignore
-            session.is_pledged = amount > 299 ? true : false;
-            // @ts-ignore
-            session.pledge_amount = amount;
+        try {
+          const pledges = await getUser(accessToken);
+          if (pledges.length) {
+            session.is_pledged = true;
+            session.pledge_amount =
+              pledges[0].attributes.currently_entitled_amount_cents;
           } else {
-            // @ts-ignore
-            session.is_pledged = false;
-            // @ts-ignore
-            session.pledge_amount = 0;
+            throw new Error("No pledge found");
           }
+        } catch (err) {
+          session.err = JSON.stringify(err);
+          session.is_pledged = false;
+          session.pledge_amount = 0;
         }
-      } catch (err) {
-        // @ts-ignore
-        session.err = JSON.stringify(err);
-        // @ts-ignore
-        session.is_pledged = false;
-        // @ts-ignore
-        session.pledge_amount = 0;
-      }
 
-      return session;
+        return session;
+      } catch {
+        return session;
+      }
     },
     jwt({ account, token, user }) {
       if (user) {
@@ -86,3 +78,19 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
     },
   },
 });
+
+export interface PatreonUserProps {
+  included: {
+    attributes: {
+      currently_entitled_amount_cents: number;
+      patron_status: string | null;
+    };
+    relationships: {
+      campaign: {
+        data: {
+          id: string;
+        };
+      };
+    };
+  }[];
+}

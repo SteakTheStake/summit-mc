@@ -19,19 +19,30 @@ import PrivacyPolicy from "./blocks/globals/PrivacyPolicy";
 
 import { endpoints } from "./endpoints";
 
+const mockModulePath = path.resolve(__dirname, "./emptyModuleMock");
+
 export default buildConfig({
   admin: {
     user: Users.slug,
     bundler: webpackBundler(),
-    webpack: (config) => {
-      config.resolve.fallback = {
-        crypto: false,
-        os: false,
-        fs: false,
-      };
-
-      return config;
-    },
+    webpack: (config) => ({
+      ...config,
+      resolve: {
+        ...config.resolve,
+        fallback: {
+          ...config.resolve.fallback,
+          zlib: false,
+        },
+        alias: {
+          ...config.resolve.alias,
+          [path.resolve(__dirname, "../node_modules/adm-zip")]: mockModulePath,
+          [path.resolve(__dirname, "../node_modules/adm-zip/util")]:
+            mockModulePath,
+          [path.resolve(__dirname, "../node_modules/adm-zip/methods")]:
+            mockModulePath,
+        },
+      },
+    }),
   },
   editor: slateEditor({}),
   collections: [Users, Posts, Downloads, Tiers, Packs, Codes, Media, PackFiles],

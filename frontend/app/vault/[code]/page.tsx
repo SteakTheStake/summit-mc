@@ -1,18 +1,19 @@
 import { auth } from "@/auth";
-import { UserCodeDetails } from "@/vault-types";
+import { UserCodeDetails } from "../vault-types";
 import { Downloads } from "../downloads";
 import { revalidateTag } from "next/cache";
 
-const checkCode = async (code: string) => {
-  const session = await auth();
-
+async function checkCode(
+  accessToken: string,
+  code: string,
+): Promise<UserCodeDetails> {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API}/api/check-code`, {
-    method: "post",
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      access_token: session?.accessToken,
+      access_token: accessToken,
       code,
     }),
     next: {
@@ -21,14 +22,18 @@ const checkCode = async (code: string) => {
   });
 
   return res.json();
-};
+}
 
 export default async function Redeem({
-  searchParams: { code },
+  params: { code },
 }: {
-  searchParams: { code: string };
+  params: { code: string };
 }) {
-  const details: UserCodeDetails = await checkCode(code);
+  const session = await auth();
+  if (!session) return null;
+  if (!session.user) return null;
+
+  const details = await checkCode(session.accessToken, code);
   const { tier, packs, downloads } = details;
 
   if (details.message) {
@@ -38,9 +43,6 @@ export default async function Redeem({
       </main>
     );
   }
-
-  const session = await auth();
-  if (!session) return <main></main>;
 
   const packList = () => {
     if (packs.length === 1) {

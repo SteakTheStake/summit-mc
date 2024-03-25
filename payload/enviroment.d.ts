@@ -7,6 +7,7 @@ declare global {
       PAYLOAD_SECRET: string;
       PORT: number;
       PATREON_NAME: string;
+      PATREON_CID: string;
       KEY: string;
       PYTHON_SERVER: string;
     }

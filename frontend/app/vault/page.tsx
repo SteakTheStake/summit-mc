@@ -1,10 +1,8 @@
-import { auth } from "@/auth";
-import type { Session as AuthSession } from "next-auth";
-import { LogoutButton } from ".";
+import { auth, signOut } from "@/auth";
 
 import { Metadata } from "next";
 import Link from "next/link";
-import { UserSubscriptionDetails } from "@/vault-types";
+import { UserSubscriptionDetails } from "./vault-types";
 import { Button } from "@/components/button";
 import { Downloads } from "./downloads";
 import { redirect } from "next/navigation";
@@ -16,30 +14,26 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-const getMyDownloads = async (session: AuthSession) => {
-  const body = {
-    access_token: session.accessToken,
-    patreon_id: session.user!.id,
-    is_pledged: session.is_pledged,
-    pledge_amount: session.pledge_amount,
-  };
+async function getUserDetails() {
+  const session = await auth();
 
-  const res = await fetch(process.env.NEXT_PUBLIC_API + "/api/my-downloads", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(body),
-    cache: "no-cache",
-  });
-  if (!res.ok) {
-    throw new Error(
-      "Failed to fetch your subscription details. " + (await res.text()),
-    );
+  if (session) {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API}/api/my-downloads`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      body: JSON.stringify({
+        access_token: session.accessToken,
+        patreon_id: session.user!.id,
+        is_pledged: session.is_pledged,
+        pledge_amount: session.pledge_amount,
+      }),
+    });
+
+    return res.json();
   }
-
-  return res.json();
-};
+}
 
 export default async function Vault() {
   const session = await auth();
@@ -52,7 +46,7 @@ export default async function Vault() {
       return;
     }
 
-    redirect("/vault/redeem?code=" + code);
+    redirect(`/vault/${code}`);
   }
 
   if (!session) {
@@ -64,7 +58,15 @@ export default async function Vault() {
       <main className="flex flex-col items-center justify-center gap-16 pt-16">
         <section className="w-full">
           <div className="flex flex-col gap-4">
-            <LogoutButton />
+            <form
+              action={async () => {
+                "use server";
+                signOut();
+              }}
+              className="mt-2 md:mt-4"
+            >
+              <Button className="w-max py-1 text-2xl">Logout</Button>
+            </form>
             <h1 className="text-[clamp(3rem,4vw,8rem)] leading-[clamp(3rem,4vw,8rem)]">
               Hello, {session?.user!.name}
             </h1>
@@ -104,9 +106,8 @@ export default async function Vault() {
     );
   }
 
-  const details: UserSubscriptionDetails = await getMyDownloads(session);
+  const details: UserSubscriptionDetails = await getUserDetails();
   const { tier, packs, downloads } = details;
-
   const packList = () => {
     if (packs.length === 1) {
       return packs[0].title;
@@ -115,13 +116,19 @@ export default async function Vault() {
     return packs.map((pack) => pack.title).join(", ");
   };
 
-  // const
-
   return (
     <main className="flex flex-col items-center justify-center gap-16 pt-16">
       <section className="grid w-full grid-cols-1 items-end gap-4 xl:grid-cols-[1.3fr,0.7fr]">
         <div className="flex flex-col gap-4">
-          <LogoutButton />
+          <form
+            action={async () => {
+              "use server";
+              signOut();
+            }}
+            className="mt-2 md:mt-4"
+          >
+            <Button className="w-max py-1 text-2xl">Logout</Button>
+          </form>
           <h1 className="text-[clamp(3rem,4vw,8rem)] leading-[clamp(3rem,4vw,8rem)]">
             Hello, {session?.user!.name}
           </h1>

@@ -1,7 +1,7 @@
 "use client";
 
 import { Dispatch, SetStateAction, useState } from "react";
-import { Download } from "@/vault-types";
+import { Download } from "./vault-types";
 import { Button } from "@/components/button";
 import { Session as AuthSession } from "next-auth";
 import { AnimatePresence, motion } from "framer-motion";
@@ -32,6 +32,7 @@ export const Downloads = ({
           session={session}
           code={code}
           reval={reval}
+          pack={download.pack}
         />
       ))}
 
@@ -41,9 +42,11 @@ export const Downloads = ({
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0 }}
-            className="absolute inset-0 flex h-full w-full items-center justify-center bg-zinc-900/90"
+            className="bg-latte-900/70 absolute inset-0 flex h-full w-full items-center justify-center border border-black p-4"
           >
-            <h1>Preparing your download! This may take a bit...</h1>
+            <h1 className="text-center text-lg text-white">
+              Preparing your download! This may take a bit...
+            </h1>
           </motion.div>
         )}
       </AnimatePresence>
@@ -59,6 +62,7 @@ const DownloadButton = ({
   resolution,
   session,
   code,
+  pack,
   reval,
 }: DownloadButtonProps) => {
   const downloadPack = async () => {
@@ -69,11 +73,12 @@ const DownloadButton = ({
       patreon_id: session.user!.id,
       is_pledged: session.is_pledged,
       pledge_amount: session.pledge_amount,
+      download_id: id,
     };
 
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_PY_API}/api/get-download/${id}/`,
+        `${process.env.NEXT_PUBLIC_API}/api/get-download/${id}`,
         {
           method: "POST",
           headers: {
@@ -106,7 +111,7 @@ const DownloadButton = ({
 
   return (
     <Button
-      className="w-full py-1 text-xl transition-opacity disabled:opacity-10"
+      className="w-full py-1 text-xl transition-[background,box-shadow,opacity] disabled:opacity-10"
       disabled={preparing}
       onClick={downloadPack}
     >
@@ -124,5 +129,6 @@ interface DownloadButtonProps {
   resolution: number;
   session: AuthSession;
   code?: string;
+  pack: string;
   reval?: () => void;
 }

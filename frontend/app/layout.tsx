@@ -48,7 +48,7 @@ export default function RootLayout({
         <Providers>
           <Navbar />
           {children}
-          <Footer></Footer>
+          <Footer />
 
           <div className="bg-overlay" aria-hidden="true">
             <Stars />
