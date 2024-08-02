@@ -70,6 +70,7 @@ const DownloadButton = ({
     const body = {
       code,
       access_token: session.accessToken,
+      // @ts-ignore
       patreon_id: session.user!.id,
       is_pledged: session.is_pledged,
       pledge_amount: session.pledge_amount,
@@ -89,13 +90,10 @@ const DownloadButton = ({
       );
 
       if (res.ok) {
-        const blob = await res.blob();
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = `${name} [${resolution}x].zip`;
-        a.click();
-        URL.revokeObjectURL(url);
+        const data: { token: string } = await res.json();
+        if (typeof window !== "undefined") {
+          window.location.href = `${process.env.NEXT_PUBLIC_API}/api/download?token=${data.token}`;
+        }
       } else {
         console.error("Failed to download file.");
       }
