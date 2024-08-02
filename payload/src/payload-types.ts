@@ -14,6 +14,7 @@ export interface Config {
     tiers: Tier;
     packs: Pack;
     codes: Code;
+    logs: Log;
     media: Media;
     files: File;
     'payload-preferences': PayloadPreference;
@@ -119,6 +120,7 @@ export interface Tier {
   name: string;
   price: number;
   join_link: string;
+  is_free?: boolean | null;
   included?:
     | {
         item: string;
@@ -147,6 +149,17 @@ export interface Code {
   expiry: string;
   is_used?: boolean | null;
   tier: string | Tier;
+  updatedAt: string;
+  createdAt: string;
+}
+export interface Log {
+  id: string;
+  filename: string;
+  token?: string | null;
+  file_path: string;
+  expires?: string | null;
+  expired?: boolean | null;
+  code?: string | null;
   updatedAt: string;
   createdAt: string;
 }
