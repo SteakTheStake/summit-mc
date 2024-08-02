@@ -155,7 +155,15 @@ export const endpoints: Endpoint[] = [
               return;
             }
           }
-          const codeDoc = codeDocs.docs[0];
+
+          // @ts-ignore
+          const codeDoc: Code = code
+            ? codeDocs.docs[0]
+            : {
+                code: null,
+                is_used: true,
+                uses_remaining: 0,
+              };
 
           const userDetails = pledges[0];
           const pledgeAmount = !codeDoc.code
