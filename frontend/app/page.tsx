@@ -19,11 +19,11 @@ export default function Home() {
           Blog
         </LinkButton>
         <LinkButton
-          href="https://bisecthosting.com/SummitMC"
+          href="https://f2.summitmc.xyz/"
           target="_blank"
           className="w-full py-3 max-sm:col-span-2"
         >
-          Bisect Hosting
+          Summit F2
         </LinkButton>
         <LinkButton
           href="https://modrinth.com/resourcepack/summit"
