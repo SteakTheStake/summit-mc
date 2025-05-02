@@ -24,6 +24,9 @@ export const Navbar = async () => {
           <li>
             <NavLink href="/blog">Blog</NavLink>
           </li>
+          <li>
+            <NavLink href="https://f2.summitmc.xyz/">F2</NavLink>
+          </li>
         </ul>
 
         <Link

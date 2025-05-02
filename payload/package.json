@@ -19,6 +19,7 @@
     "@payloadcms/bundler-webpack": "^1.0.0",
     "@payloadcms/db-mongodb": "^1.0.0",
     "@payloadcms/plugin-cloud": "^2.0.0",
+    "@payloadcms/plugin-stripe": "^3.34.0",
     "@payloadcms/richtext-slate": "^1.0.0",
     "@types/adm-zip": "^0.5.5",
     "@types/uuid": "^9.0.8",
@@ -29,6 +30,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "payload": "^2.0.0",
+    "payload-visual-editor": "^2.0.6",
     "stream-browserify": "^3.0.0",
     "uuid": "^9.0.1",
     "yauzl": "^2.10.0"
