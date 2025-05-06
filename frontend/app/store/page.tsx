@@ -164,28 +164,31 @@ const handleDragEnd = (event: DragEndEvent) => {
 }
 
 function DraggableItem({ product }) {
-  const { attributes, listeners, setNodeRef, transform } = useDraggable({
-    id: product.id,
-    data: product,
-  });
+  const handleClick = () => {
+    // Animate the click with CSS
+    const element = document.createElement('div');
+    element.className = 'click-animation';
+    element.style.left = event.clientX + 'px';
+    element.style.top = event.clientY + 'px';
+    document.body.appendChild(element);
 
-  const style = transform ? {
-    transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
-  } : undefined;
+    // Remove the animation element after it completes
+    setTimeout(() => element.remove(), 500);
+
+    // Play sound
+    new Audio('/click.mp3').play().catch(() => {});
+  };
 
   return (
     <div
-      ref={setNodeRef}
-      {...listeners}
-      {...attributes}
-      className="bg-zinc-800 p-4 rounded cursor-move border-2 border-zinc-700 hover:border-zinc-500 transition-colors"
-      style={style}
+      onClick={handleClick}
+      className="bg-zinc-800 p-4 rounded cursor-pointer border-2 border-zinc-700 hover:border-zinc-500 transition-colors select-none"
     >
-      <div className="flex items-center gap-2">
-        <span className="text-2xl">{product.icon}</span>
+      <div className="flex items-center gap-2 pointer-events-none">
+        <span className="text-2xl select-none">{product.icon}</span>
         <div>
-          <h3 className="font-bold">{product.name}</h3>
-          <p>${product.price}</p>
+          <h3 className="font-bold select-none">{product.name}</h3>
+          <p className="select-none">${product.price}</p>
         </div>
       </div>
     </div>
