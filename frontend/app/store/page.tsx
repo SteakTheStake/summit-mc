@@ -164,7 +164,7 @@ const handleDragEnd = (event: DragEndEvent) => {
 }
 
 function DraggableItem({ product }) {
-  const handleClick = () => {
+  const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
     // Animate the click with CSS
     const element = document.createElement('div');
     element.className = 'click-animation';
