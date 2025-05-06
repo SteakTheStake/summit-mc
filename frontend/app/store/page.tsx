@@ -1,4 +1,3 @@
-
 'use client';
 
 import { DndContext, closestCenter, DragEndEvent } from '@dnd-kit/core';
@@ -32,22 +31,22 @@ export default function Store() {
 
 const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
-    
+
     if (over && over.id.toString().startsWith('slot-')) {
       const product = active.data.current;
       const newProducts = [...selectedProducts];
       const slotIndex = parseInt(over.id.toString().split('-')[1]);
-      
+
       if (newProducts[slotIndex]) {
         playSound('error');
         toast.error('Slot is already occupied!');
         return;
       }
-      
+
       newProducts[slotIndex] = product;
       setSelectedProducts(newProducts);
       setTotalPrice(newProducts.reduce((sum, item) => sum + (item?.price || 0), 0));
-      
+
       playSound('click');
       toast.success('Item added to crafting grid!');
     }
@@ -87,7 +86,7 @@ const handleDragEnd = (event: DragEndEvent) => {
       <div className="max-w-6xl mx-auto">
         <h1 className="text-4xl font-bold mb-8 text-center text-[#FFD700] pixelated">Crafting Table Store</h1>
         <Toaster />
-        
+
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Item Sidebar */}
           <div className="lg:col-span-3 space-y-6">
@@ -99,7 +98,7 @@ const handleDragEnd = (event: DragEndEvent) => {
                 ))}
               </div>
             </div>
-            
+
             <div>
               <h2 className="text-2xl mb-4 border-b border-zinc-700 pb-2">Tip Jar</h2>
               <div className="grid grid-cols-1 gap-4">
@@ -119,7 +118,7 @@ const handleDragEnd = (event: DragEndEvent) => {
                     <CraftingSlot key={i} index={i} product={selectedProducts[i]} />
                   ))}
                 </div>
-                
+
                 <div className="border-t border-zinc-700 pt-4 mt-4">
                   <div className="flex justify-between items-center mb-4">
                     <span className="text-xl">Total: ${totalPrice}</span>
@@ -130,7 +129,7 @@ const handleDragEnd = (event: DragEndEvent) => {
                       Clear Grid
                     </button>
                   </div>
-                  
+
                   <button
                     onClick={handlePurchase}
                     className="w-full bg-green-600 hover:bg-green-700 p-3 rounded text-xl"
@@ -163,7 +162,7 @@ const handleDragEnd = (event: DragEndEvent) => {
   );
 }
 
-function DraggableItem({ product }) {
+function DraggableItem({ product }: { product: any }) {
   const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
     // Animate the click with CSS
     const element = document.createElement('div');
