@@ -26,7 +26,11 @@ export default function Store() {
   const [selectedProducts, setSelectedProducts] = useState<any[]>([]);
   const [totalPrice, setTotalPrice] = useState(0);
 
-  const handleDragEnd = (event: DragEndEvent) => {
+  const playSound = (sound: string) => {
+  new Audio(`/${sound}.mp3`).play().catch(() => {});
+};
+
+const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
     
     if (over && over.id.toString().startsWith('slot-')) {
@@ -35,6 +39,7 @@ export default function Store() {
       const slotIndex = parseInt(over.id.toString().split('-')[1]);
       
       if (newProducts[slotIndex]) {
+        playSound('error');
         toast.error('Slot is already occupied!');
         return;
       }
@@ -43,8 +48,7 @@ export default function Store() {
       setSelectedProducts(newProducts);
       setTotalPrice(newProducts.reduce((sum, item) => sum + (item?.price || 0), 0));
       
-      // Play sound effect
-      new Audio('/click.mp3').play().catch(() => {});
+      playSound('click');
       toast.success('Item added to crafting grid!');
     }
   };
@@ -79,9 +83,9 @@ export default function Store() {
   };
 
   return (
-    <div className="min-h-screen bg-zinc-900 p-8">
+    <div className="min-h-screen bg-[#2C1810] bg-opacity-95 p-8 font-minecraft">
       <div className="max-w-6xl mx-auto">
-        <h1 className="text-4xl font-bold mb-8 text-center">Crafting Table Store</h1>
+        <h1 className="text-4xl font-bold mb-8 text-center text-[#FFD700] pixelated">Crafting Table Store</h1>
         <Toaster />
         
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
