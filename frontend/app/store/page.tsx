@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import toast, { Toaster } from 'react-hot-toast';
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY!);
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
 const products = [
   { id: 'starter', name: 'Starter Kit', price: 5, priceId: 'price_starter', icon: '📦' },
