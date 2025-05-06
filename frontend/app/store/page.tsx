@@ -15,6 +15,12 @@ const products = [
   { id: 'premium', name: 'Lifetime Access', price: 22, priceId: 'price_yyy' },
 ];
 
+const tips = [
+  { id: 'tip-2', name: 'Small Tip', price: 2, priceId: 'price_tip_2' },
+  { id: 'tip-5', name: 'Medium Tip', price: 5, priceId: 'price_tip_5' },
+  { id: 'tip-10', name: 'Large Tip', price: 10, priceId: 'price_tip_10' },
+];
+
 export default function Store() {
   const [selectedProduct, setSelectedProduct] = useState(null);
 
@@ -45,10 +51,24 @@ export default function Store() {
         <h1 className="text-4xl font-bold mb-8">Crafting Table Store</h1>
         
         <DndContext onDragEnd={handleDragEnd} collisionDetection={closestCenter}>
-          <div className="grid grid-cols-3 gap-4 mb-8">
-            {products.map((product) => (
-              <DraggableItem key={product.id} product={product} />
-            ))}
+          <div className="space-y-8">
+            <div>
+              <h2 className="text-2xl mb-4">Texture Packs</h2>
+              <div className="grid grid-cols-3 gap-4">
+                {products.map((product) => (
+                  <DraggableItem key={product.id} product={product} />
+                ))}
+              </div>
+            </div>
+            
+            <div>
+              <h2 className="text-2xl mb-4">Tip Jar</h2>
+              <div className="grid grid-cols-3 gap-4">
+                {tips.map((tip) => (
+                  <DraggableItem key={tip.id} product={tip} />
+                ))}
+              </div>
+            </div>
           </div>
           
           <div className="bg-zinc-800 p-4 rounded-lg">
