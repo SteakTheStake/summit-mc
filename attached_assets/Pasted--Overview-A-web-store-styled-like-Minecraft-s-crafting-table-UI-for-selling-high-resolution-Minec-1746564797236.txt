@@ -1,0 +1,107 @@
+🏠 Overview
+
+A web store styled like Minecraft's crafting table UI for selling high-resolution Minecraft texture packs. Users drag products into a 3x3 grid, simulating crafting, to add them to their cart and proceed to checkout via Stripe.
+
+🔧 Core Features
+
+🔹 Crafting Grid (3x3)
+
+Central 3x3 interface mimicking Minecraft's crafting table.
+
+Users drag products into slots.
+
+Grid state determines what appears in the output slot.
+
+🔹 Output Slot (Crafted Purchase)
+
+Shows a visual preview of selected items.
+
+Displays the total price and a "Craft" button.
+
+Inactive when invalid/empty grid combinations are used.
+
+🔹 Item Sidebar (Product List)
+
+List of products styled as Minecraft items:
+
+Starter Kit – $6
+
+Lifetime Access – $22
+
+Tip Jar – $2 / $5 / $10
+
+Items have tooltips for descriptions and pricing.
+
+Draggable into the crafting grid.
+
+🔹 Cart Summary (Optional Panel)
+
+Panel or modal that shows selected items in the grid.
+
+Displays total cost.
+
+Includes "Clear Grid" button.
+
+🔹 Stripe Checkout Integration
+
+Stripe used for all transactions.
+
+Each crafted product triggers a dynamic Stripe Checkout session.
+
+Webhooks confirm payment and trigger content delivery.
+
+🔹 Download Page
+
+Thank-you/receipt page after successful payment.
+
+Secure download links for purchased content.
+
+Includes version info and licensing.
+
+🌈 Visual & UX Style
+
+Theme: Dark oak/stone background with pixelated textures.
+
+Grid: Styled like Minecraft inventory slots.
+
+Fonts: Pixel fonts like Minecraftia or Press Start 2P.
+
+Icons: Product thumbnails match Minecraft's pixel style.
+
+Cursor: Custom Minecraft-themed pointer.
+
+Animation: Grid glows, snaps, and shows pulse effects on valid combinations.
+
+🚀 Technical Stack
+
+Frontend: Next.js + Tailwind CSS
+
+Drag-and-drop: @dnd-kit/core or react-dnd
+
+Checkout: Stripe Checkout + stripe/stripe-node
+
+Storage: Vercel serverless + S3/Supabase for file delivery
+
+Payments: One-time payments only (no subscriptions)
+
+🧲 Sample User Flow
+
+User visits the store page.
+
+Drags "Starter Kit" and "Tip Jar ($5)" into crafting grid.
+
+Output slot shows a "Starter Bundle + Tip" for $11.
+
+User clicks "Craft" button.
+
+Stripe Checkout opens, user pays.
+
+Redirected to download/thank-you page with content access.
+
+✅ Future Ideas
+
+Bundle discounts (e.g., Starter Kit + Lifetime = $25 instead of $28)
+
+Custom item recipes for rare bundles
+
+Crafting sound effects and achievement popups
