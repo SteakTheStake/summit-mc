@@ -1,4 +1,3 @@
-
 'use client';
 
 import { DndContext, closestCenter } from '@dnd-kit/core';
@@ -6,6 +5,7 @@ import { useDroppable } from '@dnd-kit/core';
 import { useDraggable } from '@dnd-kit/core';
 import { useState } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
+import toast, { Toaster } from 'react-hot-toast';
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY!);
 
@@ -33,23 +33,24 @@ export default function Store() {
 
   const handlePurchase = async () => {
     if (!selectedProduct?.priceId) return;
-    
+
     const stripe = await stripePromise;
     const response = await fetch('/api/stripe', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ priceId: selectedProduct.priceId }),
     });
-    
+
     const { sessionId } = await response.json();
     await stripe?.redirectToCheckout({ sessionId });
+    toast.success('Purchase successful!'); //Added toast notification
   };
 
   return (
     <div className="min-h-screen bg-zinc-900 p-8">
       <div className="max-w-4xl mx-auto">
         <h1 className="text-4xl font-bold mb-8">Crafting Table Store</h1>
-        
+        <Toaster /> {/* Added Toaster component */}
         <DndContext onDragEnd={handleDragEnd} collisionDetection={closestCenter}>
           <div className="space-y-8">
             <div>
@@ -60,7 +61,7 @@ export default function Store() {
                 ))}
               </div>
             </div>
-            
+
             <div>
               <h2 className="text-2xl mb-4">Tip Jar</h2>
               <div className="grid grid-cols-3 gap-4">
@@ -70,10 +71,10 @@ export default function Store() {
               </div>
             </div>
           </div>
-          
+
           <div className="bg-zinc-800 p-4 rounded-lg">
             <DroppableArea product={selectedProduct} />
-            
+
             {selectedProduct && (
               <button
                 onClick={handlePurchase}
@@ -94,7 +95,7 @@ function DraggableItem({ product }) {
     id: product.id,
     data: product,
   });
-  
+
   return (
     <div
       ref={setNodeRef}
@@ -113,7 +114,7 @@ function DroppableArea({ product }) {
   const { setNodeRef } = useDroppable({
     id: 'crafting-output',
   });
-  
+
   return (
     <div
       ref={setNodeRef}
