@@ -15,6 +15,7 @@ import Codes from "./collections/Codes";
 import Logs from "./collections/Logs";
 import Media from "./collections/Media";
 import PackFiles from "./collections/PackFiles";
+import Screenshots from "./collections/Screenshots";
 
 import PrivacyPolicy from "./blocks/globals/PrivacyPolicy";
 
@@ -56,6 +57,7 @@ export default buildConfig({
     Logs,
     Media,
     PackFiles,
+    Screenshots,
   ],
   globals: [PrivacyPolicy],
   typescript: {

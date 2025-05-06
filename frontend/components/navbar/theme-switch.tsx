@@ -30,7 +30,7 @@ export const ThemeSwitch = ({ className }: { className?: string }) => {
         alt="Image of sun/moon depending on theme"
         height={24}
         width={24}
-        className="icon-shadow"
+        className="icon-shadow transparent-image"
       />
     </Button>
   );

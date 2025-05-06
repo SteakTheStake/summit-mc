@@ -1,6 +1,15 @@
 import NextAuth from "next-auth";
 import { authConfig } from "./auth.config";
 import Patreon from "next-auth/providers/patreon";
+import Discord from "next-auth/providers/discord";
+import Credentials from "next-auth/providers/credentials";
+import { JWT } from "next-auth/jwt";
+
+// Define types for your JWT token
+interface CustomToken extends JWT {
+  id: string;
+  accessToken: string;
+}
 
 const cId = process.env.PATREON_CID;
 async function getUser(accessToken: string) {
@@ -28,6 +37,34 @@ async function getUser(accessToken: string) {
 export const { handlers, auth, signIn, signOut } = NextAuth({
   ...authConfig,
   providers: [
+    Credentials({
+      name: 'credentials',
+      credentials: {
+        email: { label: "Email", type: "text" },
+        password: { label: "Password", type: "password" }
+      },
+      async authorize(credentials) {
+        if (!credentials?.email || !credentials?.password) return null;
+        
+        try {
+          const res = await fetch(`${process.env.NEXT_PUBLIC_API}/api/users/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(credentials)
+          });
+
+          const user = await res.json();
+          
+          if (!res.ok) {
+            return null;
+          }
+
+          return user;
+        } catch (error) {
+          return null;
+        }
+      }
+    }),
     Patreon({
       clientId: process.env.PATREON_CLIENT_ID,
       clientSecret: process.env.PATREON_CLIENT_SECRET,
@@ -36,14 +73,41 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           scope: "identity.memberships identity[email] identity",
         },
       },
+      profile(profile) {
+        return {
+          id: profile.id,
+          name: profile.name || `${profile.name}`,
+          email: profile.email,
+          image: null,
+        };
+      },
+    }),
+    Discord({
+      clientId: process.env.DISCORD_CLIENT_ID,
+      clientSecret: process.env.DISCORD_CLIENT_SECRET,
+      authorization: {
+        params: {
+          scope: "identify email guilds",
+        },
+      },
+      profile(profile) {
+        return {
+          id: profile.id,
+          name: profile.username,
+          email: profile.email,
+          image: `https://cdn.discordapp.com/avatars/${profile.id}/${profile.avatar}.png`,
+          discriminator: profile.discriminator,
+        };
+      },
     }),
   ],
   session: { strategy: "jwt" },
   callbacks: {
-    // @ts-ignore
     async session({ session, token }) {
       try {
-        const { accessToken, id } = token;
+        // Cast token to our custom type
+        const customToken = token as CustomToken;
+        const { accessToken, id } = customToken;
         session.user!.id = id;
         session.accessToken = accessToken;
 

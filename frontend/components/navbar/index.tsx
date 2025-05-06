@@ -12,7 +12,7 @@ export const Navbar = async () => {
   const session = await auth();
 
   return (
-    <nav className="z-[1000] flex h-16 items-center justify-center">
+    <nav className="z-[1000] flex h-16 items-center justify-center backdrop-blur-md bg-black/20">
       <header className="flex h-16 w-full max-w-7xl items-center gap-8 px-4 max-md:justify-between md:grid md:grid-cols-3">
         <ul className="flex items-center gap-4 text-2xl max-md:hidden">
           <li>
@@ -25,7 +25,7 @@ export const Navbar = async () => {
             <NavLink href="/blog">Blog</NavLink>
           </li>
           <li>
-            <NavLink href="https://f2.summitmc.xyz/">F2</NavLink>
+            <NavLink href="/f2">F2</NavLink>
           </li>
         </ul>
 
@@ -81,15 +81,25 @@ export const Navbar = async () => {
           <li>
             <ThemeSwitch />
           </li>
-          <li>
-            {!session ? (
+          {session && (
+            <>
+              <li>
+                <LinkButton href="/account" className="px-2 py-1 text-base">
+                  Account
+                </LinkButton>
+              </li>
+              <li>
+                <UserProfileDropdown session={session} />
+              </li>
+            </>
+          )}
+          {!session && (
+            <li>
               <LinkButton href="/login" className="px-2 py-1 text-base">
                 Login
               </LinkButton>
-            ) : (
-              <UserProfileDropdown session={session} />
-            )}
-          </li>
+            </li>
+          )}
         </ul>
 
         <Menu session={session} />

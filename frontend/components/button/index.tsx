@@ -33,8 +33,8 @@ export const Button: React.FC<ButtonProps> = ({
       )}
       style={{
         background: "url(/bgbtn.png)",
-        backgroundSize: "100% 200%",
-        backgroundRepeat: "no-repeat",
+        backgroundSize: "200% 200%",
+        backgroundRepeat: "repeat",
         imageRendering: "pixelated",
       }}
       onClick={(e) => {
@@ -68,7 +68,7 @@ export const LinkButton: React.FC<LinkButtonProps> = ({
       )}
       style={{
         background: "url(/bgbtn.png)",
-        backgroundSize: "100% 200%",
+        backgroundSize: "200% 200%",
         backgroundRepeat: "no-repeat",
         imageRendering: "pixelated",
       }}
